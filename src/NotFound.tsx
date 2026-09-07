@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
 import { ArrowLeft, Home, HardHat } from "lucide-react";
 import Layout from "./Layout";
 import Seo from "./components/seo/Seo";
+import ActionLink from "./components/ui/ActionLink";
+import Container from "./components/ui/Container";
 
 export default function NotFound() {
   return (
     <Layout>
-    <Seo title="Страницата не е намерена" path="/404" />
+    <Seo title="Страницата не е намерена" path="/404" noIndex />
     <main className="relative isolate flex min-h-screen items-center overflow-hidden bg-gray-950 text-white">
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/10 blur-[140px]" />
@@ -16,7 +17,7 @@ export default function NotFound() {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950/95 to-gray-950" />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-6 py-24 lg:px-8">
+      <Container className="py-24">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mx-auto mb-8 flex size-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/20 backdrop-blur">
             <HardHat className="size-7 text-amber-500" />
@@ -30,6 +31,7 @@ export default function NotFound() {
 
           {/* Content */}
           <div className="mt-2">
+            <h1 className="sr-only">Страницата не е намерена</h1>
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-500">
               Страницата не е намерена
             </p>
@@ -41,22 +43,24 @@ export default function NotFound() {
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
+            <ActionLink
               to="/"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-950 shadow-lg shadow-amber-500/20 transition-all duration-300 hover:bg-amber-400 hover:shadow-amber-500/30 sm:w-auto"
+              className="w-full sm:w-auto"
+              icon={<Home className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />}
+              iconPosition="start"
             >
-              <Home className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
               Към началото
-            </Link>
+            </ActionLink>
 
-            <button
-              type="button"
-              onClick={() => window.history.back()}
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-gray-200 backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06] sm:w-auto"
+            <ActionLink
+              to="/contact-us"
+              variant="secondary"
+              className="w-full sm:w-auto"
+              icon={<ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />}
+              iconPosition="start"
             >
-              <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
-              Назад
-            </button>
+              Към контактите
+            </ActionLink>
           </div>
 
           <div className="mx-auto mt-16 flex items-center justify-center gap-3">
@@ -65,7 +69,7 @@ export default function NotFound() {
             <span className="h-px w-12 bg-white/10" />
           </div>
         </div>
-      </div>
+      </Container>
     </main>
     </Layout>
   );

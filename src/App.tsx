@@ -4,6 +4,7 @@ import BackToTopButton from "./BackToTopButton";
 import FloatingCallButtons from "./FloatingCallButtons";
 import ScrollToTop from "./ScrollToTop";
 import PageLoader from "./PageLoader";
+import ErrorBoundary from "./ErrorBoundary";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const Gallery = lazy(() => import("./pages/gallery/Gallery"));
@@ -15,21 +16,23 @@ const NotFound = lazy(() => import("./NotFound"));
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <ScrollToTop>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact-us" element={<Contacts />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/services/:serviceName" element={<Services />} />
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoader />}>
+          <ScrollToTop>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact-us" element={<Contacts />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/services/:serviceName" element={<Services />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </ScrollToTop>
-      </Suspense>
-      <BackToTopButton />
-      <FloatingCallButtons />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ScrollToTop>
+        </Suspense>
+        <BackToTopButton />
+        <FloatingCallButtons />
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }

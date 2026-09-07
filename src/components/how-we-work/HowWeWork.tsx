@@ -1,5 +1,7 @@
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import { OptimizedImage } from "../image/OptimizedImage";
+import Container from "../ui/Container";
+import ImageFrame from "../ui/ImageFrame";
+import SectionHeading from "../ui/SectionHeading";
 import { workSteps } from "./data";
 
 export default function HowWeWork() {
@@ -20,42 +22,14 @@ export default function HowWeWork() {
         "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-5 flex items-center justify-center gap-3">
-            <span
-              className="
-                text-xs
-                font-bold
-                uppercase
-                tracking-[0.25em]
-                text-amber-500
-              "
-            >
-              Как работим
-            </span>
-          </div>
-
-          <h2
-            className="
-              text-4xl
-              font-bold
-              tracking-tight
-              text-white
-              sm:text-5xl
-              lg:text-6xl
-            "
-          >
-            От първата идея
-            <br />
-            <span className="text-amber-500">до готовия проект.</span>
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-400">
-            Работим по ясен и структуриран процес, за да знаете какво да
-            очаквате на всеки етап от проекта.
-          </p>
-        </div>
+      <Container>
+        <SectionHeading
+          eyebrow="Как работим"
+          title={<>От идея до <span className="text-amber-500">готов проект</span></>}
+          description="Следваме ясен ред на работа, за да знаете какво предстои на всеки етап."
+          align="center"
+          className="mx-auto max-w-3xl"
+        />
         <div className="mt-20 grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
           <div className="relative">
             <div
@@ -114,58 +88,16 @@ export default function HowWeWork() {
               ))}
             </div>
           </div>
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="
-                absolute
-                -inset-5
-                rounded-[2rem]
-                bg-amber-500/10
-                blur-2xl
-              "
-            />
-
-            <div
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-[2rem]
-                border
-                border-white/10
-                bg-gray-900
-                shadow-2xl
-                shadow-black/40
-              "
-            >
-              <OptimizedImage
-                url={`${CLOUDINARY_BASE_URL}/v1787399614/bathroom-1.jpg`}
-                alt="Проект на IVAN STROI баня"
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="
-                  aspect-[4/5]
-                  w-full
-                  object-cover
-                  transition-transform
-                  duration-1000
-                  group-hover:scale-105
-                "
-              />
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-gray-950/80
-                  via-transparent
-                  to-transparent
-                "
-              />
-            </div>
-          </div>
+          <ImageFrame
+            url={`${CLOUDINARY_BASE_URL}/v1787399614/bathroom-1.jpg`}
+            alt="Проект на IVAN STROI баня"
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            glowClassName="absolute -inset-5 rounded-[2rem] bg-amber-500/10 blur-2xl"
+            imageClassName="aspect-[4/5] w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            overlayClassName="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent"
+          />
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

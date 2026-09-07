@@ -1,7 +1,10 @@
+import { lazy, Suspense } from "react";
 import { ArrowRight, ClipboardList } from "lucide-react";
-import { Link } from "react-router-dom";
 import { OptimizedImage } from "../../components/image/OptimizedImage";
-import Reviews from "../../components/reviews/Reviews";
+import ActionLink from "../../components/ui/ActionLink";
+import Container from "../../components/ui/Container";
+import DeferredSection from "../../components/ui/DeferredSection";
+import SectionHeading from "../../components/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 
 import { steps } from "./data";
@@ -9,12 +12,14 @@ import Layout from "../../Layout";
 import Slider from "../../components/slider/Slider";
 import Seo from "../../components/seo/Seo";
 
+const Reviews = lazy(() => import("../../components/reviews/Reviews"));
+
 export default function Gallery() {
   return (
     <Layout>
       <main className="overflow-hidden bg-gray-950 text-white">
         <Seo
-          title="Реализирани строителни и ремонтни проекти"
+          title="Реализирани строителни и ремонтни проекти в София"
           description="Разгледайте част от реализираните проекти на IVANOV STROI в София."
           path="/gallery"
         />
@@ -33,7 +38,7 @@ export default function Gallery() {
           <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-gray-950 to-transparent" />
           <div aria-hidden="true" className="absolute -left-32 top-1/3 -z-10 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
 
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Container>
             <div className="flex min-h-[calc(100vh-120px)] items-center py-24 sm:py-32 lg:py-40">
               <div className="max-w-3xl">
                 <h1 className="animate-fade-up max-w-4xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
@@ -43,12 +48,12 @@ export default function Gallery() {
                 </h1>
 
                 <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">
-                  Разгледайте част от нашите снимки от проекти и вижте качеството,
-                  прецизността и вниманието към всеки детайл.
+                  Вижте част от реализираните ни проекти и добийте представа за
+                  нашия подход към различни пространства.
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
 
         <div className="relative overflow-hidden sm:pb-36">
@@ -70,27 +75,17 @@ export default function Gallery() {
 
           <div aria-hidden="true" className="absolute left-1/2 top-1/2 -z-10 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/10 blur-[120px]" />
 
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="mb-5 flex items-center justify-center gap-3">
-                <span className="h-px w-10 bg-amber-500" />
-
-                <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-500">
-                  Как работим
-                </span>
-
-                <span className="h-px w-10 bg-amber-500" />
-              </div>
-
-              <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
-                Само <span className="text-amber-500">3 стъпки.</span>
-              </h2>
-
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-200">
-                От първия разговор до завършения проект – правим процеса
-                максимално лесен и ясен.
-              </p>
-            </div>
+          <Container>
+            <SectionHeading
+              eyebrow="Как работим"
+              lines="both"
+              align="center"
+              className="mx-auto max-w-3xl"
+              title={<>Три стъпки към <span className="text-amber-500">вашия проект</span></>}
+              titleClassName="font-black sm:text-5xl"
+              description="От първия разговор до завършения проект – правим процеса максимално лесен и ясен."
+              descriptionClassName="text-gray-200"
+            />
 
             <div className="relative mt-16">
               {/* Connecting line */}
@@ -197,10 +192,14 @@ export default function Gallery() {
                 })}
               </div>
             </div>
-          </div>
+          </Container>
         </section>
 
-        <Reviews />
+      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
+          <Suspense fallback={null}>
+            <Reviews />
+          </Suspense>
+        </DeferredSection>
 
         <section className="relative isolate overflow-hidden pb-16 pt-20 sm:pb-36 sm:pt-28">
           <div aria-hidden="true" className="absolute inset-0 -z-20">
@@ -216,47 +215,30 @@ export default function Gallery() {
           <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-gray-950 to-transparent" />
 
 
-          <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <Container size="narrow" className="text-center">
             <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/10">
               <ClipboardList className="size-7" />
             </div>
 
             <h2 className="mt-7 text-3xl font-black sm:text-4xl lg:text-5xl">
-              Готови ли сте за следващия си проект?
+              Готови за следващия си проект
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-400">
-              Свържете се с нас и нека обсъдим как можем да превърнем вашето
-              пространство в място, с което да се гордеете.
+              Свържете се с нас, за да обсъдим обхвата, сроковете и възможностите
+              за вашето пространство.
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link
+              <ActionLink
                 to="/contact-us"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-full
-                  bg-amber-500
-                  px-7
-                  py-3.5
-                  text-sm
-                  font-bold
-                  text-gray-950
-                  transition-all
-                  duration-300
-                  hover:bg-amber-400
-                  hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]
-                "
+                className="rounded-full px-7 font-bold hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]"
+                icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
               >
                 Направи запитване
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              </ActionLink>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </Layout>

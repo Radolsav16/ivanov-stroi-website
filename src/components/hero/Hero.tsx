@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import { OptimizedImage } from "../image/OptimizedImage";
+import ActionLink from "../ui/ActionLink";
+import Container from "../ui/Container";
 
 export default function Hero() {
   return (
@@ -63,7 +64,7 @@ export default function Hero() {
     "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div className="flex min-h-[calc(100vh-120px)] items-center py-24 sm:py-32 lg:py-40">
           <div className="max-w-3xl">
             <h1
@@ -78,9 +79,9 @@ export default function Hero() {
             animate-fade-up
           "
             >
-              Вашият дом
+              Домът ви
               <br />
-              <span className="text-amber-500">Нашата отговорност</span>
+              <span className="text-amber-500">в сигурни ръце</span>
             </h1>
             <p
               className="
@@ -93,40 +94,23 @@ export default function Hero() {
             animate-fade-up-delay
           "
             >
-              Качествено строителство, прецизност и отношение към всеки детайл.
+              Строителство и ремонти с ясен план, точна организация и лично отношение
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
+              <ActionLink
                 to="/contact-us"
-                className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-950 shadow-lg shadow-amber-500/20 transition-all duration-200 hover:bg-amber-400 hover:shadow-amber-500/30"
+                className="duration-200"
               >
                 Направи запитване
-              </Link>
-              <Link
+              </ActionLink>
+              <ActionLink
                 to="/gallery"
-                className="
-              inline-flex
-              items-center
-              gap-2
-              rounded-xl
-              border
-              border-white/15
-              bg-white/5
-              px-6
-              py-3.5
-              text-sm
-              font-semibold
-              text-white
-              backdrop-blur-sm
-              transition-all
-              duration-200
-              hover:border-white/25
-              hover:bg-white/10
-            "
+                variant="secondary"
+                className="duration-200"
               >
                 Разгледай проектите
-              </Link>
+              </ActionLink>
             </div>
 
             <div className="mt-14 border-t border-white/10 pt-8">
@@ -140,25 +124,25 @@ export default function Hero() {
                 <div className="hidden h-12 w-px bg-white/10 sm:block" />
 
                 <div>
-                  <p className="text-2xl font-bold text-white">24/7</p>
+                  <p className="text-2xl font-bold text-white">Ясен</p>
 
-                  <p className="mt-1 text-sm text-gray-400">ангажираност</p>
+                  <p className="mt-1 text-sm text-gray-400">процес</p>
                 </div>
 
                 <div className="hidden h-12 w-px bg-white/10 sm:block" />
 
                 <div>
-                  <p className="text-2xl font-bold text-white">100%</p>
+                  <p className="text-2xl font-bold text-white">Един</p>
 
                   <p className="mt-1 text-sm text-gray-400">
-                    отношение към детайла
+                    отговорен екип
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

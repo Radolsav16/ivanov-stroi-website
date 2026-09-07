@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import HomeLink from "./components/HomeLink";
 import { MobileHamburgerButton } from "./components/MobileHamburgerButton";
 import ServiceNavigationDropdown from "./components/ServiceNavigationDropdown";
+import Container from "../ui/Container";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,17 +25,18 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50  bg-gray-950 shadow-2xl shadow-black/20 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <HomeLink />
-        <MobileHamburgerButton onClick={() => setMobileMenuOpen(true)} />
+      <nav>
+        <Container className="flex items-center justify-between py-4">
+          <HomeLink />
+          <MobileHamburgerButton onClick={() => setMobileMenuOpen(true)} />
 
-        <PopoverGroup className="hidden items-center lg:flex lg:gap-x-2">
-          <ServiceNavigationDropdown services={services} />
-          {navLinks.map((item) => (
-            <Link
-              key={item.title}
-              to={item.href}
-              className="
+          <PopoverGroup className="hidden items-center lg:flex lg:gap-x-2">
+            <ServiceNavigationDropdown services={services} />
+            {navLinks.map((item) => (
+              <Link
+                key={item.title}
+                to={item.href}
+                className="
             group
             relative
             rounded-xl
@@ -48,11 +50,11 @@ export default function Header() {
             hover:bg-white/5
             hover:text-white
           "
-            >
-              {item.title}
+              >
+                {item.title}
 
-              <span
-                className="
+                <span
+                  className="
               absolute
               bottom-1
               left-1/2
@@ -65,10 +67,11 @@ export default function Header() {
               duration-300
               group-hover:w-1/2
             "
-              />
-            </Link>
-          ))}
-        </PopoverGroup>
+                />
+              </Link>
+            ))}
+          </PopoverGroup>
+        </Container>
       </nav>
       <Dialog
         open={mobileMenuOpen}

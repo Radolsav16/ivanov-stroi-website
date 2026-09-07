@@ -4,21 +4,26 @@ import {
   Phone,
   Hammer,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import Seo from "../seo/Seo";
 import { OptimizedImage } from "../image/OptimizedImage";
 import HowWeWork from "../how-we-work/HowWeWork";
-import Reviews from "../reviews/Reviews";
 import Layout from "../../Layout";
+import { contactDetails } from "../../data/contact";
+import ActionLink from "../ui/ActionLink";
+import Container from "../ui/Container";
+import DeferredSection from "../ui/DeferredSection";
+
+const Reviews = lazy(() => import("../reviews/Reviews"));
 
 const AboutUs = () => {
   return (
     <Layout>
       <main className="overflow-hidden bg-gray-950 text-white">
         <Seo
-          title="За нас"
-          description="Научете повече за подхода, стандартите и услугите на IVANOV STROI."
+          title="За IVANOV STROI: строителство и ремонти в София"
+          description="Научете повече за подхода на IVANOV STROI към строителството, ремонтите и довършителните услуги в София и околностите."
           path="/about-us"
         />
         <section className="relative isolate min-h-[680px] overflow-hidden sm:min-h-[720px] lg:min-h-[780px]">
@@ -36,37 +41,38 @@ const AboutUs = () => {
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950 via-gray-950/90 to-gray-950/30" />
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-950 via-transparent to-gray-950/20" />
 
-          <div className="mx-auto flex min-h-[680px] max-w-7xl items-center px-6 py-24 sm:min-h-[720px] lg:min-h-[780px] lg:px-8">
+          <Container className="flex min-h-[680px] items-center py-24 sm:min-h-[720px] lg:min-h-[780px]">
             <div className="max-w-3xl">
               <h1 className="animate-fade-up max-w-5xl text-5xl font-black leading-[0.98] tracking-tight text-white drop-shadow-2xl sm:text-6xl md:text-7xl lg:text-7xl">
-                Създаваме пространства,
+                Създаваме пространства
                 <span className="mt-2 block text-amber-500 sm:mt-3">
-                  в които си струва да живееш.
+                  в които си струва да живееш
                 </span>
               </h1>
 
               <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">
-                IVANOV STROI превръща идеите за вашия дом в реалност. От малки
-                ремонти до цялостни строителни проекти — работим с внимание към
-                качеството и всеки детайл.
+                IVANOV STROI превръща идеите за дома в добре организирани ремонти
+                и строителни решения — от малката промяна до цялостния проект
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
+                <ActionLink
                   to="/contact-us"
-                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-bold text-gray-950 transition hover:bg-amber-400"
+                  className="font-bold"
+                  icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
                 >
                   Направи запитване
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
+                </ActionLink>
 
-                <a
-                  href="tel:+359876884517"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+                <ActionLink
+                  href={contactDetails.phoneHref}
+                  variant="secondary"
+                  className="bg-white/10 hover:bg-white/15"
+                  icon={<Phone className="size-4" />}
+                  iconPosition="start"
                 >
-                  <Phone className="size-4" />
                   Обади се
-                </a>
+                </ActionLink>
               </div>
 
               <div className="mt-12 flex flex-wrap gap-x-7 gap-y-4 border-t border-white/10 pt-6 text-sm text-gray-300">
@@ -86,10 +92,10 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section className="relative py-20 sm:py-28 lg:py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Container>
             <div className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
               <div className="relative mx-auto w-full max-w-xl lg:mx-0">
                 <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10">
@@ -115,31 +121,28 @@ const AboutUs = () => {
 
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-500">
-                  Създаваме място за вашия живот.
+                  Създаваме пространство за вашия живот
                 </p>
 
                 <p className="mt-7 text-base leading-8 text-gray-300 sm:text-lg">
-                  За нас всеки проект е възможност да създадем пространство,
-                  което не просто изглежда добре, а е направено с мисъл за
-                  хората, които ще го използват всеки ден. Вярваме, че
-                  качественият резултат започва много преди самото изпълнение.
-                  Затова отделяме време да разберем вашите нужди, идеи и
-                  очаквания, за да изградим решение, което отговаря на
-                  конкретния проект и начин на живот. Подхождаме индивидуално
-                  към всеки обект — от първоначалния разговор и планирането,
-                  през избора на материали и прецизното изпълнение, до последния
-                  завършен детайл. Защото за нас строителството не приключва с
-                  предаването на готовия проект. Важен е резултатът, който
-                  остава след нас — функционално, качествено и добре изпълнено
-                  пространство, на което можете да разчитате години напред.
+                  Започваме с разговор, за да разберем как ще използвате
+                  пространството и какъв резултат очаквате. След това подреждаме
+                  работата, избираме подходящите решения и изпълняваме проекта
+                  последователно. Целта ни не е просто добре изглеждащ интериор,
+                  а функционално пространство, което ви е удобно всеки ден и
+                  запазва стойността си във времето.
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
 
         <HowWeWork />
-        <Reviews />
+      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
+          <Suspense fallback={null}>
+            <Reviews />
+          </Suspense>
+        </DeferredSection>
 
         <section className="relative isolate overflow-hidden border-t border-white/10 py-20 sm:py-28 lg:py-36">
           <div className="absolute inset-0 -z-20">
@@ -163,7 +166,7 @@ const AboutUs = () => {
             className="absolute left-1/2 top-1/2 -z-10 size-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/10 blur-[120px] sm:size-[600px]"
           />
 
-          <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <Container size="narrow" className="text-center">
             <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-amber-500/20 bg-gray-950/60 text-amber-500 shadow-2xl backdrop-blur-md sm:size-16">
               <Hammer className="size-6 sm:size-7" />
             </div>
@@ -174,7 +177,7 @@ const AboutUs = () => {
 
             {/* Heading */}
             <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-              Готови ли сте да започнем?
+              Готови за следващата стъпка
             </h2>
 
             {/* Description */}
@@ -185,63 +188,23 @@ const AboutUs = () => {
 
             {/* Buttons */}
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-              <Link
+              <ActionLink
                 to="/contact-us"
-                className="
-          group
-          inline-flex
-          min-h-12
-          items-center
-          justify-center
-          gap-2
-          rounded-xl
-          bg-amber-500
-          px-7
-          py-3.5
-          text-sm
-          font-bold
-          text-gray-950
-          shadow-xl
-          shadow-amber-500/10
-          transition-all
-          duration-300
-          hover:-translate-y-0.5
-          hover:bg-amber-400
-          hover:shadow-amber-500/20
-        "
+                className="px-7 font-bold shadow-xl shadow-amber-500/10 hover:-translate-y-0.5 hover:shadow-amber-500/20"
+                icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
               >
                 Направи запитване
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              </ActionLink>
 
-              <a
-                href="tel:+359876884517"
-                className="
-          inline-flex
-          min-h-12
-          items-center
-          justify-center
-          gap-2
-          rounded-xl
-          border
-          border-white/15
-          bg-gray-950/60
-          px-7
-          py-3.5
-          text-sm
-          font-semibold
-          text-white
-          shadow-xl
-          backdrop-blur-md
-          transition-all
-          duration-300
-          hover:-translate-y-0.5
-          hover:bg-white/10
-        "
+              <ActionLink
+                href={contactDetails.phoneHref}
+                variant="secondary"
+                className="bg-gray-950/60 px-7 shadow-xl hover:-translate-y-0.5"
+                icon={<Phone className="size-4" />}
+                iconPosition="start"
               >
-                <Phone className="size-4" />
-                +359 876 884 517
-              </a>
+                {contactDetails.phone}
+              </ActionLink>
             </div>
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-gray-400 sm:text-sm">
@@ -264,7 +227,7 @@ const AboutUs = () => {
                 Индивидуален подход
               </span>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </Layout>

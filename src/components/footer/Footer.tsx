@@ -7,6 +7,8 @@ import {
 
 import { navigation, services } from "./data";
 import { Link } from "react-router-dom";
+import { contactDetails } from "../../data/contact";
+import Container from "../ui/Container";
 
 export default function Footer() {
   return (
@@ -27,7 +29,7 @@ export default function Footer() {
         "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div
           className="
             grid
@@ -62,8 +64,8 @@ export default function Footer() {
             </Link>
 
             <p className="mt-5 max-w-sm text-sm leading-7 text-gray-500">
-              Качествени строителни и ремонтни услуги с внимание към всеки
-              детайл. Превръщаме вашите идеи в пространства, които остават.
+              Строителни, ремонтни и довършителни услуги с ясен процес и
+              отговорно изпълнение в София и околностите.
             </p>
 
             <Link
@@ -145,7 +147,7 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-white">Контакти</h3>
 
             <div className="mt-6 space-y-5">
-              <a href="tel:+359876884517" className="group flex gap-3">
+              <a href={contactDetails.phoneHref} className="group flex gap-3">
                 <PhoneIcon
                   className="
                     mt-0.5
@@ -168,13 +170,13 @@ export default function Footer() {
                       group-hover:text-amber-500
                     "
                   >
-                    +359 876 884 517
+                    {contactDetails.phone}
                   </p>
                 </div>
               </a>
 
               <a
-                href="mailto:krasenivanov21@gmail.com"
+                href={contactDetails.emailHref}
                 className="group flex gap-3"
               >
                 <EnvelopeIcon
@@ -199,7 +201,7 @@ export default function Footer() {
                       group-hover:text-amber-500
                     "
                   >
-                    krasenivanov21@gmail.com
+                    {contactDetails.email}
                   </p>
                 </div>
               </a>
@@ -218,7 +220,7 @@ export default function Footer() {
                   <p className="text-xs text-gray-600">Район на работа</p>
 
                   <p className="mt-1 text-sm font-semibold text-white">
-                    София и околностите
+                    {contactDetails.serviceArea}
                   </p>
                 </div>
               </div>
@@ -244,10 +246,10 @@ export default function Footer() {
           </p>
 
           <p className="text-xs text-gray-600">
-            Качество. Коректност. Доверие.
+            Качество • Коректност • Доверие
           </p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

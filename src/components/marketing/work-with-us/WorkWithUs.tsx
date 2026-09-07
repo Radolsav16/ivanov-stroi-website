@@ -1,5 +1,8 @@
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
-import { OptimizedImage } from "../../image/OptimizedImage";
+import { contactDetails } from "../../../data/contact";
+import ActionLink from "../../ui/ActionLink";
+import Container from "../../ui/Container";
+import ImageFrame from "../../ui/ImageFrame";
 
 export default function WorkWithUs() {
   return (
@@ -18,7 +21,7 @@ export default function WorkWithUs() {
         "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div
           className="
             grid
@@ -39,9 +42,9 @@ export default function WorkWithUs() {
                 lg:text-7xl
               "
             >
-              Имате идея?
+              Имате идея
               <br />
-              <span className="text-amber-500">Нека я изградим.</span>
+              <span className="text-amber-500">Нека я изградим</span>
             </h2>
             <p
               className="
@@ -53,34 +56,17 @@ export default function WorkWithUs() {
                 sm:text-xl
               "
             >
-              Независимо дали започвате ново строителство, ремонт или цялостно
-              обновяване — ние сме тук, за да превърнем идеята Ви в реалност.
+              Независимо дали планирате ремонт, обновяване или ново строителство,
+              ще ви помогнем да превърнете идеята в ясно реализиран проект.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a
-                href="tel:+359876884517"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  gap-3
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-white/[0.03]
-                  px-6
-                  py-3.5
-                  text-sm
-                  font-semibold
-                  text-white
-                  transition-all
-                  duration-200
-                  hover:border-amber-500/30
-                  hover:bg-white/[0.06]
-                "
+              <ActionLink
+                href={contactDetails.phoneHref}
+                variant="secondary"
+                className="border-white/10 bg-white/[0.03] hover:border-amber-500/30 hover:bg-white/[0.06]"
               >
                 Обади се сега
-              </a>
+              </ActionLink>
             </div>
 
             <div className="mt-10 flex items-center gap-4">
@@ -96,70 +82,27 @@ export default function WorkWithUs() {
 
               <div>
                 <p className="text-sm font-semibold text-white">
-                  От идея до завършен проект
+                  От идея до готово пространство
                 </p>
 
                 <p className="text-xs text-gray-500">
-                  С професионализъм на всеки етап
+                  С ясен процес на всяка стъпка
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="
-                absolute
-                -inset-5
-                rounded-[2rem]
-                bg-amber-500/10
-                blur-2xl
-              "
-            />
-
-            <div
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-[2rem]
-                border
-                border-white/10
-                bg-gray-900
-                shadow-2xl
-                shadow-black/50
-              "
-            >
-              <OptimizedImage
-                url={`${CLOUDINARY_BASE_URL}/v1787399641/bathroom-2.jpg`}
-                alt="Завършен проект на IVANOV STROI (баня) 2"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="
-                  aspect-[4/3]
-                  w-full
-                  object-cover
-                  object-center
-                  transition-transform
-                  duration-[1200ms]
-                  group-hover:scale-105
-                "
-              />
-
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-gray-950/80
-                  via-transparent
-                  to-transparent
-                "
-              />
-            </div>
-          </div>
+          <ImageFrame
+            url={`${CLOUDINARY_BASE_URL}/v1787399641/bathroom-2.jpg`}
+            alt="Завършен проект на IVANOV STROI (баня) 2"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            glowClassName="absolute -inset-5 rounded-[2rem] bg-amber-500/10 blur-2xl"
+            frameClassName="shadow-black/50"
+            imageClassName="aspect-[4/3] w-full object-cover object-center transition-transform duration-[1200ms] group-hover:scale-105"
+            overlayClassName="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent"
+          />
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

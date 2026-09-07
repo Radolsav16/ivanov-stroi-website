@@ -1,20 +1,18 @@
 import { Phone, PhoneCall } from "lucide-react";
-
-const PHONE_NUMBER = "+359 876 884 517";
-const PHONE_LINK = "+359876884517";
+import { contactDetails } from "./data/contact";
 
 export default function FloatingCallButtons() {
   return (
     <>
       <a
-        href={`tel:${PHONE_LINK}`}
-        aria-label={`Позвънете на ${PHONE_NUMBER}`}
+        href={contactDetails.phoneHref}
+        aria-label={`Позвънете на ${contactDetails.phone}`}
         className="
           fixed
           bottom-5
           left-5
-          z-[9999]
-          flex
+          z-40
+          hidden
           items-center
           gap-2.5
           rounded-full
@@ -37,6 +35,7 @@ export default function FloatingCallButtons() {
           animate-call-bounce
           sm:bottom-8
           sm:left-8
+          sm:flex
           sm:px-5
           sm:py-3.5
         "
@@ -59,19 +58,19 @@ export default function FloatingCallButtons() {
         </span>
 
         <span className="whitespace-nowrap">
-          {PHONE_NUMBER}
+          {contactDetails.phone}
         </span>
       </a>
 
       <a
-        href={`tel:${PHONE_LINK}`}
-        aria-label={`Позвънете на ${PHONE_NUMBER}`}
+        href={contactDetails.phoneHref}
+        aria-label={`Позвънете на ${contactDetails.phone}`}
         className="
           group
           fixed
           bottom-5
           right-5
-          z-[9999]
+          z-40
           flex
           size-14
           items-center

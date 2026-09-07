@@ -1,5 +1,8 @@
-import "dotenv/config";
+import dns from "node:dns";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 import cors from "cors";
+import { config } from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
@@ -7,7 +10,19 @@ import mongoose from "mongoose";
 import { ContactRequest } from "./models/contactRequest.js";
 import { contactRequestSchema } from "./validation.js";
 
+const serverDirectory = dirname(fileURLToPath(import.meta.url));
+config({ path: resolve(serverDirectory, "../.env"), quiet: true });
+
 const { MONGODB_URI, PORT = "3001" } = process.env;
+const dnsServers = (process.env.DNS_SERVERS ?? "")
+  .split(",")
+  .map((server) => server.trim())
+  .filter(Boolean);
+
+if (dnsServers.length > 0) {
+  dns.setServers(dnsServers);
+}
+
 const trustProxy = process.env.TRUST_PROXY === "true";
 const allowedOrigins = new Set(
   (process.env.ALLOWED_ORIGINS ?? "http://localhost:5173")
@@ -53,6 +68,15 @@ app.get("/health", (_request, response) => {
   response.status(200).json({ status: "ok" });
 });
 
+app.get("/ready", (_request, response) => {
+  if (mongoose.connection.readyState !== 1) {
+    response.status(503).json({ status: "unavailable", database: "disconnected" });
+    return;
+  }
+
+  response.status(200).json({ status: "ready", database: "connected" });
+});
+
 app.post("/api/contact", contactLimiter, async (request, response, next) => {
   if (!request.is("application/json")) {
     response.status(415).json({ message: "Очакват се JSON данни." });
@@ -95,10 +119,19 @@ app.use((error, _request, response, _next) => {
   response.status(500).json({ message: "Възникна проблем. Моля, опитайте отново." });
 });
 
-await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 10000 });
 const server = app.listen(Number(PORT), () => {
   console.log(`Contact API is listening on port ${PORT}`);
 });
+
+try {
+  await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 10000 });
+  console.log("MongoDB connection established");
+} catch (error) {
+  console.error("MongoDB connection failed", {
+    name: error instanceof Error ? error.name : "UnknownError",
+  });
+  server.close(() => process.exit(1));
+}
 
 const shutdown = async () => {
   await mongoose.disconnect();

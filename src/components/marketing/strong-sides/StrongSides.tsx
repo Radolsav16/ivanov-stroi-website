@@ -1,6 +1,8 @@
-import { OptimizedImage } from "../../image/OptimizedImage";
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
 import { features } from "./data";
+import Container from "../../ui/Container";
+import ImageFrame from "../../ui/ImageFrame";
+import SectionHeading from "../../ui/SectionHeading";
 
 export default function StrongSides() {
   return (
@@ -19,101 +21,25 @@ export default function StrongSides() {
           blur-3xl
         "
       />
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
-           <div className="relative">
-            <div
-              aria-hidden="true"
-              className="
-                absolute
-                -inset-4
-                rounded-[2rem]
-                bg-amber-500/10
-                blur-2xl
-              "
-            />
-            <div
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-[2rem]
-                border
-                border-white/10
-                bg-gray-900
-                shadow-2xl
-                shadow-black/40
-              "
-            >
-              <OptimizedImage
-                url={`${CLOUDINARY_BASE_URL}/v1787401298/bathroom-3.jpg`}
-                alt="Снимка на завършен проект на IVANOV STROI (баня)"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="
-                  aspect-[4/5]
-                  w-full
-                  object-cover
-                  object-center
-                  transition-transform
-                  duration-1000
-                  group-hover:scale-105
-                "
-              />
-              <div
-                className="
-                  pointer-events-none
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-gray-950/80
-                  via-gray-950/10
-                  to-transparent
-                "
-              />
-            </div>
-          </div>
+          <ImageFrame
+            url={`${CLOUDINARY_BASE_URL}/v1787401298/bathroom-3.jpg`}
+            alt="Снимка на завършен проект на IVANOV STROI (баня)"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            glowClassName="absolute -inset-4 rounded-[2rem] bg-amber-500/10 blur-2xl"
+            imageClassName="aspect-[4/5] w-full object-cover object-center transition-transform duration-1000 group-hover:scale-105"
+            overlayClassName="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/10 to-transparent"
+          />
 
           <div>
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-px w-10 bg-amber-500" />
-
-              <span
-                className="
-                  text-xs
-                  font-bold
-                  uppercase
-                  tracking-[0.25em]
-                  text-amber-500
-                "
-              >
-                Защо да изберете нас
-              </span>
-            </div>
-            <h2
-              className="
-                text-4xl
-                font-bold
-                tracking-tight
-                text-white
-                sm:text-5xl
-                lg:text-6xl
-              "
-            >
-              Строим с мисъл за
-              <span className="text-amber-500"> бъдещето.</span>
-            </h2>
-            <p
-              className="
-                mt-6
-                max-w-xl
-                text-lg
-                leading-8
-                text-gray-400
-              "
-            >
-              За нас качеството не е просто обещание. То е стандарт, който
-              следваме във всеки проект от първата идея до последния детайл.
-            </p>
+            <SectionHeading
+              eyebrow="Защо да изберете нас"
+              lines="before"
+              title={<>Качество, което <span className="text-amber-500">се вижда</span></>}
+              description="Планираме внимателно, работим организирано и предаваме пространство, което служи добре всеки ден."
+              descriptionClassName="max-w-xl"
+            />
 
             <div className="mt-10 space-y-3">
               {features.map((feature, index) => (
@@ -184,7 +110,7 @@ export default function StrongSides() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

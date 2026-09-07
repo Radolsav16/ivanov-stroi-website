@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import { OptimizedImage } from "../image/OptimizedImage";
+import Container from "../ui/Container";
+import SectionHeading from "../ui/SectionHeading";
 import { services } from "./data";
 
 export default function Services() {
@@ -21,45 +23,16 @@ export default function Services() {
         "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div className="flex flex-col items-end gap-8">
-          <div className="max-w-3xl text-right">
-            <div className="mb-5 flex items-center justify-end gap-3">
-              <span
-                className="
-                  text-xs
-                  font-bold
-                  uppercase
-                  tracking-[0.25em]
-                  text-amber-500
-                "
-              >
-                Дейности и услуги
-              </span>
-
-              <span className="h-px w-10 bg-amber-500" />
-            </div>
-
-            <h2
-              className="
-                text-4xl
-                font-bold
-                tracking-tight
-                text-white
-                sm:text-5xl
-                lg:text-6xl
-              "
-            >
-              Всичко необходимо
-              <br />
-              <span className="text-amber-500">за Вашия проект.</span>
-            </h2>
-
-            <p className="mt-6 ml-auto max-w-2xl text-lg leading-8 text-gray-400">
-              От малки ремонти до цялостни строителни проекти — поемаме всеки
-              етап с професионализъм и отговорност.
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="Дейности и услуги"
+            lines="after"
+            align="right"
+            className="max-w-3xl"
+            title={<>Всичко за <span className="text-amber-500">вашия проект</span></>}
+            description="От малка промяна до цялостен ремонт — получавате организирана работа и единна отговорност."
+          />
         </div>
 
         <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -80,7 +53,7 @@ export default function Services() {
             >
               <OptimizedImage
                 url={`${CLOUDINARY_BASE_URL}${service.image}`}
-                alt={service.title}
+                alt=""
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="
                   absolute
@@ -185,7 +158,7 @@ export default function Services() {
             </Link>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

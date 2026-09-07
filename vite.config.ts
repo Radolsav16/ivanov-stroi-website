@@ -3,24 +3,14 @@ import { resolve } from "node:path";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import { servicePaths } from "./src/data/serviceSlugs.ts";
 
 const routes = [
   "/",
   "/gallery",
   "/about-us",
   "/contact-us",
-  "/services/remont-na-banya",
-  "/services/remont-na-apartamenti",
-  "/services/mazilki",
-  "/services/gipsokarton",
-  "/services/stalbishta-dvorno-stroitelstvo",
-  "/services/vik-instalatsii",
-  "/services/boyadjijski-uslugi",
-  "/services/polirane-na-estestven-kamak",
-  "/services/el-instalatsii",
-  "/services/lepene-na-estestven-kamak",
-  "/services/lepene-na-plochki",
-  "/services/shpaklovane",
+  ...servicePaths,
 ];
 
 function createSeoFiles(siteUrl: string | undefined): Plugin {
@@ -28,7 +18,16 @@ function createSeoFiles(siteUrl: string | undefined): Plugin {
     name: "production-seo-files",
     apply: "build",
     closeBundle() {
+      const robots = siteUrl
+        ? `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl.replace(/\/$/, "")}/sitemap.xml\n`
+        : "User-agent: *\nAllow: /\n";
+
+      writeFileSync(resolve("dist/robots.txt"), robots, "utf8");
+
       if (!siteUrl) {
+        console.warn(
+          "VITE_SITE_URL is not set. Canonical links and sitemap.xml will not be generated; robots.txt allows public crawling without a sitemap reference.",
+        );
         return;
       }
 
@@ -37,10 +36,8 @@ function createSeoFiles(siteUrl: string | undefined): Plugin {
         .map((route) => `  <url><loc>${baseUrl}${route}</loc></url>`)
         .join("\n");
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-      const robots = `User-agent: *\nAllow: /\n\nSitemap: ${baseUrl}/sitemap.xml\n`;
 
       writeFileSync(resolve("dist/sitemap.xml"), sitemap, "utf8");
-      writeFileSync(resolve("dist/robots.txt"), robots, "utf8");
     },
   };
 }

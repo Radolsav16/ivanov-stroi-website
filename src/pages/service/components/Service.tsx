@@ -5,8 +5,11 @@ import {
   MessageCircle,
   Ruler,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { contactDetails } from "../../../data/contact";
 import { OptimizedImage } from "../../../components/image/OptimizedImage";
+import ActionLink from "../../../components/ui/ActionLink";
+import Container from "../../../components/ui/Container";
+import SectionHeading from "../../../components/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
 import type { ServiceData } from "../data";
 import ServiceHero from "./ServiceHero";
@@ -15,19 +18,19 @@ const processSteps = [
   {
     number: "01",
     title: "Разговор и оглед",
-    description: "Уточняваме обхвата, нуждите на обекта и желания резултат.",
+    description: "Уточняваме обхвата, приоритетите и реалните условия на обекта.",
     icon: MessageCircle,
   },
   {
     number: "02",
-    title: "Ясен план",
-    description: "Подреждаме работата и уточняваме важните детайли преди старта.",
+    title: "План за работа",
+    description: "Подреждаме етапите, материалите и важните решения преди старта.",
     icon: ClipboardList,
   },
   {
     number: "03",
-    title: "Прецизно изпълнение",
-    description: "Работим последователно и държим на чистия завършек на всеки етап.",
+    title: "Работа по етапи",
+    description: "Изпълняваме договорения обхват последователно и с контрол по време на работа.",
     icon: Ruler,
   },
 ];
@@ -39,17 +42,16 @@ export default function Service({ service }: { service: ServiceData }) {
 
       <section className="relative overflow-hidden bg-gray-950 py-20 sm:py-28 lg:py-32">
         <div aria-hidden="true" className="absolute -left-40 top-1/2 -z-10 size-[500px] -translate-y-1/2 rounded-full bg-amber-500/5 blur-3xl" />
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-px w-10 bg-amber-500" />
-              <span className="text-xs font-bold uppercase tracking-[0.22em] text-amber-500">Какво получавате</span>
-            </div>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Подход, съобразен с <span className="text-amber-500">вашето пространство.</span>
-            </h2>
-            <p className="mt-7 text-base leading-8 text-gray-300 sm:text-lg">{service.overview}</p>
-          </div>
+        <Container size="content">
+          <SectionHeading
+            eyebrow="Какво получавате"
+            lines="before"
+            className="max-w-3xl"
+            title={<>Решение според <span className="text-amber-500">вашето пространство</span></>}
+            description={service.overview}
+            titleClassName="text-3xl sm:text-4xl lg:text-5xl"
+            descriptionClassName="mt-7 text-base text-gray-300 sm:text-lg"
+          />
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {service.includes.map((item, index) => (
@@ -59,13 +61,10 @@ export default function Service({ service }: { service: ServiceData }) {
                 </span>
                 <CheckCircle2 className="size-7 text-amber-500" />
                 <h3 className="mt-7 max-w-xs text-xl font-bold text-white sm:text-2xl">{item}</h3>
-                <p className="mt-3 max-w-sm text-sm leading-7 text-gray-400 sm:text-base">
-                  Качествено изпълнение, съобразено с конкретните условия и детайли на вашия обект.
-                </p>
               </article>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       <section className="relative isolate overflow-hidden border-y border-white/10 py-20 sm:py-28">
@@ -80,11 +79,13 @@ export default function Service({ service }: { service: ServiceData }) {
         </div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/90" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950/95 via-gray-950/80 to-gray-950/65" />
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-500">Как работим</p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">Ясен процес. Спокоен резултат.</h2>
-          </div>
+        <Container>
+          <SectionHeading
+            eyebrow="Как работим"
+            className="max-w-2xl"
+            title="Ясен план, сигурен резултат"
+            titleClassName="text-2xl sm:whitespace-nowrap sm:text-4xl lg:text-5xl"
+          />
 
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {processSteps.map((step) => {
@@ -102,7 +103,7 @@ export default function Service({ service }: { service: ServiceData }) {
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
       <section className="relative isolate overflow-hidden py-20 sm:py-28 lg:py-32">
@@ -115,28 +116,33 @@ export default function Service({ service }: { service: ServiceData }) {
             className="size-full object-cover object-center"
           />
         </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/85" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/75 via-gray-950/80 to-gray-950/95" />
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-amber-500/20 bg-gray-950/50 text-amber-500 backdrop-blur-sm">
-            <ClipboardList className="size-6" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/45" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/70 via-gray-950/20 to-gray-950/75" />
+        <Container size="narrow" className="text-center">
+          <div className="rounded-3xl border border-white/10 bg-gray-950/30 px-5 py-10 shadow-2xl shadow-black/20 backdrop-blur-[2px] sm:px-10 sm:py-12">
+            <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-amber-500/20 bg-gray-950/50 text-amber-500 backdrop-blur-sm">
+              <ClipboardList className="size-6" />
+            </div>
+            <h2 className="mt-7 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Вашият проект за <span className="text-amber-500">{service.title.toLowerCase()}</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-gray-100 sm:text-lg">
+              Споделете какво планирате и ще обсъдим най-подходящите следващи стъпки за вашия обект.
+            </p>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <ActionLink
+                to="/contact-us"
+                className="px-7 font-bold hover:-translate-y-0.5"
+                icon={<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />}
+              >
+                Поискайте оферта
+              </ActionLink>
+              <ActionLink href={contactDetails.phoneHref} variant="secondary" className="bg-gray-950/50 px-7">
+                {contactDetails.phone}
+              </ActionLink>
+            </div>
           </div>
-          <h2 className="mt-7 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Имате проект за <span className="text-amber-500">{service.title.toLowerCase()}?</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-gray-200 sm:text-lg">
-            Разкажете ни накратко какво планирате. Ще обсъдим възможностите и следващите стъпки за вашия обект.
-          </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link to="/contact-us" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-bold text-gray-950 shadow-lg shadow-amber-500/20 transition hover:-translate-y-0.5 hover:bg-amber-400">
-              Поискайте оферта
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <a href="tel:+359876884517" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/15 bg-gray-950/50 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/25 hover:bg-white/[0.1]">
-              +359 876 884 517
-            </a>
-          </div>
-        </div>
+        </Container>
       </section>
     </>
   );

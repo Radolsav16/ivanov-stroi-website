@@ -4,6 +4,7 @@ import { images } from "../../data/images";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import { OptimizedImage } from "../image/OptimizedImage";
 import { Link } from "react-router-dom";
+import Container from "../ui/Container";
 
 type SliderProps = {
   showGalleryLink?: boolean;
@@ -12,7 +13,7 @@ type SliderProps = {
 export default function Slider({ showGalleryLink = true }: SliderProps) {
   return (
     <section className="overflow-hidden bg-gray-950 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <h2 className="sr-only">Галерия от реализирани проекти</h2>
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -25,7 +26,7 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
             </div>
 
             <p className="mt-4 max-w-2xl text-gray-400">
-              Разгледайте част от работата ни с внимание към всеки детайл.
+              Разгледайте част от реализираните ни ремонти и строителни решения.
             </p>
           </div>
 
@@ -51,9 +52,9 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
             </Link>
           )}
         </div>
-      </div>
+      </Container>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container>
         <div className="gallery-swiper relative overflow-hidden rounded-3xl border border-white/10 bg-gray-950/80 shadow-2xl shadow-black/30">
           <Swiper
             modules={[Navigation, Pagination]}
@@ -75,7 +76,7 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
                   <OptimizedImage
                     url={`${CLOUDINARY_BASE_URL}${item.image}`}
                     alt={item.alt}
-                    sizes="100vw"
+                    sizes="(min-width: 1280px) 1280px, 100vw"
                     className="
                           h-full
                           w-full
@@ -193,7 +194,7 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
             </svg>
           </button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

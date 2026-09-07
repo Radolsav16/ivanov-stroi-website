@@ -1,6 +1,8 @@
 export const CLOUDINARY_BASE_URL = "https://res.cloudinary.com/rwyghcuy/image/upload";
 
-export const CLOUDINARY_WIDTHS = [320, 640, 960, 1280, 1920];
+// The intermediate widths prevent mobile and high-DPR screens from downloading
+// the next unnecessarily large Cloudinary candidate from the responsive srcSet.
+export const CLOUDINARY_WIDTHS = [320, 480, 640, 768, 960, 1280, 1536, 1920];
 
 type CloudinaryImageOptions = {
   width?: number;

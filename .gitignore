@@ -1,6 +1,12 @@
-# Logs
+# Environment files. Keep only the documented examples in Git.
 .env
+.env.*
+!.env.example
+!server/.env.example
 server/.env
+server/.env.*
+
+# Logs
 logs
 *.log
 npm-debug.log*

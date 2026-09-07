@@ -6,15 +6,12 @@ import WorkWithUs from "../../components/marketing/work-with-us/WorkWithUs";
 import Seo from "../../components/seo/Seo";
 import { organizationSchema } from "../../components/seo/data";
 import Services from "../../components/services/Services";
+import DeferredSection from "../../components/ui/DeferredSection";
 import Layout from "../../Layout";
 
 const Slider = lazy(() => import("../../components/slider/Slider"));
 const Reviews = lazy(() => import("../../components/reviews/Reviews"));
 const ContactForm = lazy(() => import("../../components/contact-form/ContactForm"));
-
-function SectionFallback() {
-  return <div className="min-h-24 bg-gray-950" aria-hidden="true" />;
-}
 
 export default function Home() {
   return (
@@ -25,14 +22,22 @@ export default function Home() {
         <StrongSides />
         <Services />
         <WorkWithUs />
-        <Suspense fallback={<SectionFallback />}>
-          <Slider />
-        </Suspense>
+      <DeferredSection placeholderClassName="min-h-[650px] bg-gray-950 sm:min-h-[900px] lg:min-h-[1050px]">
+          <Suspense fallback={null}>
+            <Slider />
+          </Suspense>
+        </DeferredSection>
         <HowWeWork />
-        <Suspense fallback={<SectionFallback />}>
-          <Reviews />
-          <ContactForm />
-        </Suspense>
+      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
+          <Suspense fallback={null}>
+            <Reviews />
+          </Suspense>
+        </DeferredSection>
+      <DeferredSection placeholderClassName="min-h-[800px] bg-gray-950 sm:min-h-[900px]">
+          <Suspense fallback={null}>
+            <ContactForm />
+          </Suspense>
+        </DeferredSection>
       </main>
     </Layout>
   );

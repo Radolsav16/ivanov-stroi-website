@@ -5,6 +5,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { OptimizedImage } from "../image/OptimizedImage";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
+import Container from "../ui/Container";
+import SectionHeading from "../ui/SectionHeading";
 import { reviews } from "./data";
 
 export default function Reviews() {
@@ -38,44 +40,16 @@ export default function Reviews() {
         "
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-5 flex items-center justify-center gap-3">
-            <span className="h-px w-10 bg-amber-500" />
-
-            <span
-              className="
-                text-xs
-                font-bold
-                uppercase
-                tracking-[0.25em]
-                text-amber-500
-              "
-            >
-              Отзиви от клиенти
-            </span>
-
-            <span className="h-px w-10 bg-amber-500" />
-          </div>
-
-          <h2
-            className="
-              text-4xl
-              font-bold
-              tracking-tight
-              text-white
-              sm:text-5xl
-              lg:text-6xl
-            "
-          >
-            Думите на нашите
-            <span className="text-amber-500"> клиенти.</span>
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-300">
-            Най-добрата оценка за нашата работа са доволните клиенти.
-          </p>
-        </div>
+      <Container>
+        <SectionHeading
+          eyebrow="Отзиви от клиенти"
+          lines="both"
+          align="center"
+          className="mx-auto max-w-3xl"
+          title={<>Клиентите за <span className="text-amber-500">работата ни</span></>}
+          description="Реалните впечатления са най-добрият ориентир при избора на екип."
+          descriptionClassName="text-gray-300"
+        />
 
         <div className="mt-16">
           <Swiper
@@ -164,6 +138,9 @@ export default function Reviews() {
                       <p className="text-sm font-bold text-white">
                         {review.name}
                       </p>
+                      <p className="mt-1 text-xs text-gray-500">
+                        {review.project}
+                      </p>
                     </div>
                   </div>
                   <div
@@ -184,7 +161,7 @@ export default function Reviews() {
             ))}
           </Swiper>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
