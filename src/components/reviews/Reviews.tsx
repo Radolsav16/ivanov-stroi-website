@@ -3,10 +3,10 @@ import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { OptimizedImage } from "../image/OptimizedImage";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import Container from "../../shared/ui/Container";
+import SectionHeading from "../../shared/ui/SectionHeading";
 import { reviews } from "./data";
 
 export default function Reviews() {

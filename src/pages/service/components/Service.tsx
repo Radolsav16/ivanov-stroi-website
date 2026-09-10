@@ -6,10 +6,10 @@ import {
   Ruler,
 } from "lucide-react";
 import { contactDetails } from "../../../data/contact";
-import { OptimizedImage } from "../../../components/image/OptimizedImage";
-import ActionLink from "../../../components/ui/ActionLink";
-import Container from "../../../components/ui/Container";
-import SectionHeading from "../../../components/ui/SectionHeading";
+import { OptimizedImage } from "../../../shared/ui/OptimizedImage";
+import ActionLink from "../../../shared/ui/ActionLink";
+import Container from "../../../shared/ui/Container";
+import SectionHeading from "../../../shared/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
 import type { ServiceData } from "../data";
 import ServiceHero from "./ServiceHero";

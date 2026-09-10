@@ -7,13 +7,13 @@ import {
 import { lazy, Suspense } from "react";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import Seo from "../seo/Seo";
-import { OptimizedImage } from "../image/OptimizedImage";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import HowWeWork from "../how-we-work/HowWeWork";
 import Layout from "../../Layout";
 import { contactDetails } from "../../data/contact";
-import ActionLink from "../ui/ActionLink";
-import Container from "../ui/Container";
-import DeferredSection from "../ui/DeferredSection";
+import ActionLink from "../../shared/ui/ActionLink";
+import Container from "../../shared/ui/Container";
+import DeferredSection from "../../shared/ui/DeferredSection";
 
 const Reviews = lazy(() => import("../reviews/Reviews"));
 

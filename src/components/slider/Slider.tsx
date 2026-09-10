@@ -2,9 +2,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { images } from "../../data/images";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import { OptimizedImage } from "../image/OptimizedImage";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import { Link } from "react-router-dom";
-import Container from "../ui/Container";
+import Container from "../../shared/ui/Container";
 
 type SliderProps = {
   showGalleryLink?: boolean;

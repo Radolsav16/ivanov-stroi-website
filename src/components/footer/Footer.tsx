@@ -8,7 +8,7 @@ import {
 import { navigation, services } from "./data";
 import { Link } from "react-router-dom";
 import { contactDetails } from "../../data/contact";
-import Container from "../ui/Container";
+import Container from "../../shared/ui/Container";
 
 export default function Footer() {
   return (

@@ -3,12 +3,12 @@
 This project has two independently deployed parts:
 
 1. **Frontend:** Vite/React single-page application, built to `dist/`.
-2. **Contact API:** Express and MongoDB Atlas service under `server/`.
+2. **Contact and projects API:** ASP.NET Core and MongoDB Atlas service under `ProjectsApi/`.
 
 The repository includes `vercel.json`, so **Vercel** is the recommended frontend
-deployment. The contact API should run as a separate **Render Web Service**. This
-keeps the existing SPA and the long-running Express process on hosting models that
-match their actual runtime needs, without adding Docker or provider-specific files.
+deployment. The contact and projects API should run as a separate **Render Web
+Service**. This keeps the existing SPA and the long-running ASP.NET Core process
+on hosting models that match their actual runtime needs.
 
 ## Prerequisites
 
@@ -26,9 +26,10 @@ Run these commands from a clean clone before deploying:
 npm ci
 npm run lint
 npm test
-npm run server:test
 npm run build
 npm run preview
+dotnet test ProjectsApi.Tests
+docker build -t ivan-stroi-api ProjectsApi
 ```
 
 `npm run build` performs TypeScript checking and emits the static site in `dist/`.
@@ -45,11 +46,12 @@ contain database credentials, private API keys, or other secrets.
 | --- | --- | --- | --- |
 | `VITE_SITE_URL` | Yes | Canonical HTTPS frontend URL; enables canonical tags and sitemap generation. | Public |
 | `VITE_CONTACT_FORM_ENDPOINT` | Recommended | HTTPS endpoint for `POST /api/contact`; omit only for the email-client fallback. | Public |
+| `VITE_PROJECTS_API_URL` | Optional | Full projects API base URL; if empty, it is derived from the contact endpoint origin. | Public |
 | `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Optional | Search Console ownership token. | Public |
 
 Changing a `VITE_` variable requires a new frontend build and deployment.
 
-### Contact API variables
+### C# API variables
 
 Configure these only in the API host's secret/environment settings. Do not add them
 to the frontend project settings or Git.
@@ -57,11 +59,10 @@ to the frontend project settings or Git.
 | Variable | Required | Purpose | Visibility |
 | --- | --- | --- | --- |
 | `MONGODB_URI` | Yes | MongoDB Atlas connection string. | Secret |
-| `NODE_ENV` | Yes | Set to `production`. | Server-only |
-| `PORT` | Host-dependent | API listening port. | Server-only |
+| `MONGODB_DATABASE` | Yes | Database name used by the C# API. | Server-only |
+| `ASPNETCORE_ENVIRONMENT` | Yes | Set to `Production`. | Server-only |
+| `PORT` | Host-provided | Render injects the API listening port. | Server-only |
 | `ALLOWED_ORIGINS` | Yes | Exact comma-separated HTTPS frontend origins allowed by CORS. | Server-only |
-| `TRUST_PROXY` | Host-dependent | `true` only behind one trusted reverse proxy. | Server-only |
-| `DNS_SERVERS` | Optional | DNS resolvers for Atlas SRV lookup issues. | Server-only |
 
 ## Frontend deployment (Vercel)
 
@@ -79,25 +80,29 @@ headers. If Vercel is used:
 The `/services/:serviceName` routes, gallery, about, and contact pages rely on the
 included `/* → /index.html` SPA rewrite. Test direct loads and refreshes after deployment.
 
-## Contact API deployment (Render Web Service)
+## Contact and projects API deployment (Render Web Service)
 
-Render is the selected API provider for this project. Create a Web Service from the
-repository with the repository root as its root directory (the API intentionally
-uses the root `package.json` and lockfile).
+Keep the existing Node service available until the C# service passes its smoke test,
+then deploy the C# API as a separate Render Web Service from the same repository.
+This preserves a safe rollback path and leaves the Vercel frontend unchanged.
 
-1. Set the build command to `npm ci` and the start command to `npm run server:start`.
-2. Select a supported Node.js runtime (Node 20.19+ or Node 22.12+); Render injects
-   `PORT`, which the server already reads and binds on all interfaces.
-3. Set the Render health check path to `/ready`. `/health` is the lightweight
+1. Set the service root directory to `ProjectsApi` and choose **Docker**. Render
+   will use the committed `ProjectsApi/Dockerfile`.
+2. Set the Render health check path to `/ready`. `/health` is the lightweight
    process liveness endpoint; `/ready` additionally verifies MongoDB readiness so a
    new release is not routed before Atlas is connected.
-4. Set the server-only variables above in Render's environment settings.
-5. **MANUAL STEP:** In MongoDB Atlas, permit only the deployed API environment as
+3. Set `MONGODB_URI`, `MONGODB_DATABASE`, `ASPNETCORE_ENVIRONMENT=Production`,
+   and `ALLOWED_ORIGINS` in Render's environment.
+4. **MANUAL STEP:** In MongoDB Atlas, permit only the deployed API environment as
    required and confirm the API's connection succeeds.
-6. Set `VITE_CONTACT_FORM_ENDPOINT` to the final HTTPS API URL in the frontend,
+5. Set `VITE_CONTACT_FORM_ENDPOINT` to the final HTTPS API URL in the frontend,
    then rebuild and redeploy the frontend.
-7. Verify `GET /health`, `GET /ready`, a valid contact request, validation errors,
-   and rate limiting.
+6. Verify `GET /health`, `GET /ready`, `GET /api/projects`, a valid contact request,
+   validation errors, and rate limiting. The projects API is intentionally read-only.
+
+The obsolete SQL Server project, EF migrations and demo seed code have been removed.
+There were no SQL Server records to migrate. New project records are stored in the
+MongoDB `projects` collection.
 
 Render provides managed HTTPS, logs, deploy health checks, Git-based deploys, and
 dashboard rollback for this stateless API. No persistent local filesystem, worker,

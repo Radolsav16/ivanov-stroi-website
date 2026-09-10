@@ -1,8 +1,8 @@
 import { ArrowLeft, Home, HardHat } from "lucide-react";
 import Layout from "./Layout";
 import Seo from "./components/seo/Seo";
-import ActionLink from "./components/ui/ActionLink";
-import Container from "./components/ui/Container";
+import ActionLink from "./shared/ui/ActionLink";
+import Container from "./shared/ui/Container";
 
 export default function NotFound() {
   return (

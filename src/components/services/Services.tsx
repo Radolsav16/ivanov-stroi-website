@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import { OptimizedImage } from "../image/OptimizedImage";
-import Container from "../ui/Container";
-import SectionHeading from "../ui/SectionHeading";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
+import Container from "../../shared/ui/Container";
+import SectionHeading from "../../shared/ui/SectionHeading";
 import { services } from "./data";
 
 export default function Services() {

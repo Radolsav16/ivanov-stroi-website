@@ -1,8 +1,8 @@
 import { ArrowRight, ChevronRight, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import { OptimizedImage } from "../../../components/image/OptimizedImage";
-import ActionLink from "../../../components/ui/ActionLink";
-import Container from "../../../components/ui/Container";
+import { OptimizedImage } from "../../../shared/ui/OptimizedImage";
+import ActionLink from "../../../shared/ui/ActionLink";
+import Container from "../../../shared/ui/Container";
 import { contactDetails } from "../../../data/contact";
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
 import type { ServiceData } from "../data";

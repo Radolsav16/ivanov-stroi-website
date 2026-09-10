@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import HomeLink from "./components/HomeLink";
 import { MobileHamburgerButton } from "./components/MobileHamburgerButton";
 import ServiceNavigationDropdown from "./components/ServiceNavigationDropdown";
-import Container from "../ui/Container";
+import Container from "../../shared/ui/Container";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
