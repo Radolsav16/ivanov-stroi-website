@@ -6,12 +6,12 @@ import WorkWithUs from "../../components/marketing/work-with-us/WorkWithUs";
 import Seo from "../../components/seo/Seo";
 import { organizationSchema } from "../../components/seo/data";
 import Services from "../../components/services/Services";
-import DeferredSection from "../../components/ui/DeferredSection";
+import DeferredSection from "../../shared/ui/DeferredSection";
 import Layout from "../../Layout";
 
 const Slider = lazy(() => import("../../components/slider/Slider"));
 const Reviews = lazy(() => import("../../components/reviews/Reviews"));
-const ContactForm = lazy(() => import("../../components/contact-form/ContactForm"));
+const ContactForm = lazy(() => import("../../features/contact/ContactForm"));
 
 export default function Home() {
   return (

@@ -1,15 +1,15 @@
 import { lazy, Suspense } from "react";
 import { ArrowRight, ClipboardList } from "lucide-react";
-import { OptimizedImage } from "../../components/image/OptimizedImage";
-import ActionLink from "../../components/ui/ActionLink";
-import Container from "../../components/ui/Container";
-import DeferredSection from "../../components/ui/DeferredSection";
-import SectionHeading from "../../components/ui/SectionHeading";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
+import ActionLink from "../../shared/ui/ActionLink";
+import Container from "../../shared/ui/Container";
+import DeferredSection from "../../shared/ui/DeferredSection";
+import SectionHeading from "../../shared/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 
 import { steps } from "./data";
 import Layout from "../../Layout";
-import Slider from "../../components/slider/Slider";
+import ProjectsShowcase from "../../features/projects/ProjectsShowcase";
 import Seo from "../../components/seo/Seo";
 
 const Reviews = lazy(() => import("../../components/reviews/Reviews"));
@@ -58,7 +58,7 @@ export default function Gallery() {
 
         <div className="relative overflow-hidden sm:pb-36">
           <div className="absolute inset-0 -z-10 bg-gray-950/95" />
-          <Slider showGalleryLink={false} />
+          <ProjectsShowcase />
         </div>
 
         <section className="relative isolate overflow-hidden py-28 sm:py-36">

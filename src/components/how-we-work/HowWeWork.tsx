@@ -1,7 +1,7 @@
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import Container from "../ui/Container";
-import ImageFrame from "../ui/ImageFrame";
-import SectionHeading from "../ui/SectionHeading";
+import Container from "../../shared/ui/Container";
+import ImageFrame from "../../shared/ui/ImageFrame";
+import SectionHeading from "../../shared/ui/SectionHeading";
 import { workSteps } from "./data";
 
 export default function HowWeWork() {

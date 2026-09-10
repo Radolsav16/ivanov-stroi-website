@@ -4,11 +4,11 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { lazy, Suspense } from "react";
-import ContactRequestForm from "../../components/contact-form/ContactRequestForm";
-import { OptimizedImage } from "../../components/image/OptimizedImage";
+import ContactRequestForm from "../../features/contact/ContactRequestForm";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import Seo from "../../components/seo/Seo";
-import Container from "../../components/ui/Container";
-import DeferredSection from "../../components/ui/DeferredSection";
+import Container from "../../shared/ui/Container";
+import DeferredSection from "../../shared/ui/DeferredSection";
 import { contactDetails } from "../../data/contact";
 import Layout from "../../Layout";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";

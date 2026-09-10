@@ -1,7 +1,7 @@
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-import { OptimizedImage } from "../image/OptimizedImage";
-import ActionLink from "../ui/ActionLink";
-import Container from "../ui/Container";
+import { OptimizedImage } from "../../shared/ui/OptimizedImage";
+import ActionLink from "../../shared/ui/ActionLink";
+import Container from "../../shared/ui/Container";
 
 export default function Hero() {
   return (

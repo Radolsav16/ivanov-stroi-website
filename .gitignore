@@ -1,10 +1,11 @@
 # Environment files. Keep only the documented examples in Git.
 .env
 .env.*
-!.env.example
-!server/.env.example
 server/.env
 server/.env.*
+!.env.example
+!server/.env.example
+!ProjectsApi/.env.example
 
 # Logs
 logs
@@ -19,6 +20,10 @@ node_modules
 dist
 dist-ssr
 *.local
+**/bin/
+**/obj/
+.docker-config-check/
+/Production_Readiness_Checklist_Ivan_Stroi.docx
 
 # Editor directories and files
 .vscode/*

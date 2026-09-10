@@ -1,8 +1,8 @@
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
 import { contactDetails } from "../../../data/contact";
-import ActionLink from "../../ui/ActionLink";
-import Container from "../../ui/Container";
-import ImageFrame from "../../ui/ImageFrame";
+import ActionLink from "../../../shared/ui/ActionLink";
+import Container from "../../../shared/ui/Container";
+import ImageFrame from "../../../shared/ui/ImageFrame";
 
 export default function WorkWithUs() {
   return (
