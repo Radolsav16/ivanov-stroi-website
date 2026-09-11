@@ -4,7 +4,12 @@ import type {
   ContactFormValues,
 } from "./types";
 import { contactDetails } from "../../data/contact";
-import { HttpError, requestJson } from "../../shared/api/http";
+import {
+  ApiConfigurationError,
+  HttpError,
+  HttpNetworkError,
+  requestJson,
+} from "../../shared/api/http";
 
 const DEFAULT_ERROR_MESSAGE = "Запитването не беше изпратено. Моля, опитайте отново.";
 
@@ -62,10 +67,13 @@ export async function submitContactRequest(
       });
     } catch (error) {
       if (error instanceof HttpError) throw getApiError(error);
-      if (error instanceof Error && error.message.includes("API URL")) {
+      if (error instanceof ApiConfigurationError) {
         throw new ContactRequestError(
           "Формата не е конфигурирана за защитена връзка. Моля, свържете се с нас по телефон или email.",
         );
+      }
+      if (error instanceof HttpNetworkError) {
+        throw new ContactRequestError(error.message);
       }
       throw error;
     }

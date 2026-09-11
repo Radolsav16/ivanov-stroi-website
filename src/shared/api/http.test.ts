@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { HttpError, HttpTimeoutError, requestJson } from "./http";
+import { HttpError, HttpNetworkError, HttpTimeoutError, requestJson } from "./http";
 
 describe("requestJson", () => {
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("requestJson", () => {
 
     await expect(requestJson("/api/contact")).rejects.toMatchObject<HttpError>({
       name: "HttpError",
-      message: "API request failed",
+      message: "Заявката към сървъра беше неуспешна.",
       status: 429,
       payload: { message: "Опитайте отново" },
     });
@@ -47,5 +47,14 @@ describe("requestJson", () => {
     ));
 
     await expect(requestJson("/api/projects", {}, 1)).rejects.toBeInstanceOf(HttpTimeoutError);
+  });
+
+  it("normalizes browser network errors in Bulgarian", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
+
+    await expect(requestJson("/api/contact")).rejects.toMatchObject<HttpNetworkError>({
+      name: "HttpNetworkError",
+      message: "Не успяхме да се свържем със сървъра. Проверете интернет връзката и опитайте отново.",
+    });
   });
 });
