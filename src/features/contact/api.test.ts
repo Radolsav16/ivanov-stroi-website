@@ -54,4 +54,13 @@ describe("contact API", () => {
       fieldErrors: { email: "Въведете валиден email адрес." },
     });
   });
+
+  it("replaces browser network errors with a Bulgarian message", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
+
+    await expect(submitContactRequest(values)).rejects.toMatchObject({
+      name: "ContactRequestError",
+      message: "Не успяхме да се свържем със сървъра. Проверете интернет връзката и опитайте отново.",
+    });
+  });
 });

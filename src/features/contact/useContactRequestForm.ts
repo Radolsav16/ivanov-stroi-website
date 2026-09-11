@@ -131,8 +131,8 @@ export function useContactRequestForm() {
       setStatus("error");
       setStatusMessage(
         error instanceof HttpTimeoutError
-          ? "Връзката отне твърде дълго. Проверете интернет връзката и опитайте отново."
-          : error instanceof Error
+          ? "Сървърът се стартира по-бавно от очакваното. Моля, опитайте отново след малко."
+          : error instanceof ContactRequestError
             ? error.message
             : DEFAULT_ERROR_MESSAGE,
       );
