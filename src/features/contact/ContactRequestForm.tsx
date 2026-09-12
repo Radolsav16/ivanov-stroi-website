@@ -8,7 +8,6 @@ import { services } from "./data";
 import FormField from "./FormField";
 import ServiceSelect from "./ServiceSelect";
 import { useContactRequestForm } from "./useContactRequestForm";
-import { contactHoneypotFieldName } from "./types";
 
 type ContactRequestFormProps = {
   idPrefix: string;
@@ -61,17 +60,6 @@ export default function ContactRequestForm({
 
   return (
     <form noValidate onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-      <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
-        <input
-          name={contactHoneypotFieldName}
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          data-1p-ignore="true"
-          data-lpignore="true"
-        />
-      </div>
-
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
         <FormField id={fieldId("name")} label="Име" error={errors.name} className="min-w-0" labelClassName={styles.label}>
           <div className={`relative ${styles.field}`}>
@@ -195,11 +183,6 @@ export default function ContactRequestForm({
       </button>
 
       <ContactFormStatus status={status} message={statusMessage} className={styles.status} />
-      {status === "idle" && (
-        <p className="text-center text-xs text-gray-600">
-          Ако формата не е свързана със сървър, ще се отвори вашето email приложение.
-        </p>
-      )}
     </form>
   );
 }

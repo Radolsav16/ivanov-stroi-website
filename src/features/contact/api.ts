@@ -3,7 +3,6 @@ import type {
   ContactFormErrors,
   ContactFormValues,
 } from "./types";
-import { contactDetails } from "../../data/contact";
 import {
   ApiConfigurationError,
   HttpError,
@@ -52,49 +51,37 @@ const getApiError = (error: HttpError) => {
 
 export async function submitContactRequest(
   values: ContactFormValues,
-  website = "",
   signal?: AbortSignal,
 ) {
   const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim();
 
-  if (endpoint) {
-    try {
-      await requestJson(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...values, website }),
-        signal,
-      });
-    } catch (error) {
-      if (error instanceof HttpError) throw getApiError(error);
-      if (error instanceof ApiConfigurationError) {
-        throw new ContactRequestError(
-          "Формата не е конфигурирана за защитена връзка. Моля, свържете се с нас по телефон или email.",
-        );
-      }
-      if (error instanceof HttpNetworkError) {
-        throw new ContactRequestError(error.message);
-      }
-      throw error;
-    }
-
-    return "sent" as const;
+  if (!endpoint) {
+    throw new ContactRequestError(
+      "Формата временно не е достъпна. Моля, свържете се с нас по телефон или email.",
+    );
   }
 
-  const message = [
-    `Име: ${values.name}`,
-    `Телефон: ${values.phone}`,
-    `Email: ${values.email}`,
-    `Услуга: ${values.service}`,
-    "",
-    `Съобщение:\n${values.message}`,
-  ].join("\n");
+  try {
+    await requestJson(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      // The public client always sends an empty trap value. The API still
+      // rejects direct bot requests that populate the honeypot contract.
+      body: JSON.stringify({ ...values, website: "" }),
+      signal,
+    });
+  } catch (error) {
+    if (error instanceof HttpError) throw getApiError(error);
+    if (error instanceof ApiConfigurationError) {
+      throw new ContactRequestError(
+        "Формата не е конфигурирана за защитена връзка. Моля, свържете се с нас по телефон или email.",
+      );
+    }
+    if (error instanceof HttpNetworkError) {
+      throw new ContactRequestError(error.message);
+    }
+    throw error;
+  }
 
-  const mailto = new URLSearchParams({
-    subject: "Ново запитване от сайта на IVANOV STROI",
-    body: message,
-  });
-
-  window.location.href = `${contactDetails.emailHref}?${mailto.toString()}`;
-  return "email-client" as const;
+  return "sent" as const;
 }
