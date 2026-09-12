@@ -45,7 +45,7 @@ contain database credentials, private API keys, or other secrets.
 | Variable | Required | Purpose | Visibility |
 | --- | --- | --- | --- |
 | `VITE_SITE_URL` | Yes | Canonical HTTPS frontend URL; enables canonical tags and sitemap generation. | Public |
-| `VITE_CONTACT_FORM_ENDPOINT` | Recommended | HTTPS endpoint for `POST /api/contact`; omit only for the email-client fallback. | Public |
+| `VITE_CONTACT_FORM_ENDPOINT` | Yes | Full HTTPS endpoint for `POST /api/contact`. | Public |
 | `VITE_PROJECTS_API_URL` | Optional | Full projects API base URL; if empty, it is derived from the contact endpoint origin. | Public |
 | `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Optional | Search Console ownership token. | Public |
 
@@ -82,9 +82,9 @@ included `/* → /index.html` SPA rewrite. Test direct loads and refreshes after
 
 ## Contact and projects API deployment (Render Web Service)
 
-Keep the existing Node service available until the C# service passes its smoke test,
-then deploy the C# API as a separate Render Web Service from the same repository.
-This preserves a safe rollback path and leaves the Vercel frontend unchanged.
+The retired Node service has been removed after the C# deployment passed staging
+and production verification. Deploy only the ASP.NET Core API as a separate Render
+Web Service from this repository.
 
 1. Set the service root directory to `ProjectsApi` and choose **Docker**. Render
    will use the committed `ProjectsApi/Dockerfile`.
