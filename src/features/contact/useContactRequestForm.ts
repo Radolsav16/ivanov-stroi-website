@@ -5,6 +5,7 @@ import {
 } from "./api";
 import {
   contactFieldNames,
+  contactHoneypotFieldName,
   emptyContactFormValues,
   type ContactFieldName,
   type ContactFormErrors,
@@ -85,7 +86,7 @@ export function useContactRequestForm() {
       return;
     }
 
-    const website = new FormData(form).get("website");
+    const website = new FormData(form).get(contactHoneypotFieldName);
     const controller = new AbortController();
 
     isSubmitting.current = true;
