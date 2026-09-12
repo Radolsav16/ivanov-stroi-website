@@ -40,8 +40,19 @@ export default function Service({ service }: { service: ServiceData }) {
     <>
       <ServiceHero service={service} />
 
-      <section className="relative overflow-hidden bg-gray-950 py-20 sm:py-28 lg:py-32">
-        <div aria-hidden="true" className="absolute -left-40 top-1/2 -z-10 size-[500px] -translate-y-1/2 rounded-full bg-amber-500/5 blur-3xl" />
+      <section className="relative isolate overflow-hidden bg-gray-950 py-20 sm:py-28 lg:py-32">
+        <div aria-hidden="true" className="absolute inset-0 -z-20">
+          <OptimizedImage
+            url={`${CLOUDINARY_BASE_URL}${service.detailImage}`}
+            alt=""
+            width={1920}
+            sizes="100vw"
+            className="size-full object-cover object-center"
+          />
+        </div>
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/78" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950/92 via-gray-950/72 to-gray-950/45" />
+        <div aria-hidden="true" className="absolute -left-40 top-1/2 -z-10 size-[500px] -translate-y-1/2 rounded-full bg-amber-500/10 blur-3xl" />
         <Container size="content">
           <SectionHeading
             eyebrow="Какво получавате"
@@ -67,27 +78,14 @@ export default function Service({ service }: { service: ServiceData }) {
         </Container>
       </section>
 
-      <section className="relative isolate overflow-hidden border-y border-white/10 py-20 sm:py-28">
-        <div aria-hidden="true" className="absolute inset-0 -z-20">
-          <OptimizedImage
-            url={`${CLOUDINARY_BASE_URL}${service.detailImage}`}
-            alt=""
-            width={1920}
-            sizes="100vw"
-            className="size-full object-cover object-center"
-          />
-        </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/90" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950/95 via-gray-950/80 to-gray-950/65" />
+      <section className="relative isolate overflow-hidden border-y border-white/10 bg-gray-950 py-20 sm:py-28">
+        <div aria-hidden="true" className="absolute left-1/2 top-0 -z-10 h-80 w-[70rem] -translate-x-1/2 rounded-full bg-amber-500/[0.06] blur-3xl" />
         <Container>
-          <SectionHeading
-            eyebrow="Как работим"
-            className="max-w-2xl"
-            title="Ясен план, сигурен резултат"
-            titleClassName="text-2xl sm:whitespace-nowrap sm:text-4xl lg:text-5xl"
-          />
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="mb-10 flex items-center gap-4 sm:mb-12">
+            <span className="h-px w-10 bg-amber-500" />
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Как работим</p>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-3">
             {processSteps.map((step) => {
               const Icon = step.icon;
 

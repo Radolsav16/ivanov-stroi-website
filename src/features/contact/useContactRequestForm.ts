@@ -5,7 +5,6 @@ import {
 } from "./api";
 import {
   contactFieldNames,
-  contactHoneypotFieldName,
   emptyContactFormValues,
   type ContactFieldName,
   type ContactFormErrors,
@@ -86,7 +85,6 @@ export function useContactRequestForm() {
       return;
     }
 
-    const website = new FormData(form).get(contactHoneypotFieldName);
     const controller = new AbortController();
 
     isSubmitting.current = true;
@@ -95,9 +93,8 @@ export function useContactRequestForm() {
     setStatusMessage("");
 
     try {
-      const result = await submitContactRequest(
+      await submitContactRequest(
         values,
-        typeof website === "string" ? website : "",
         controller.signal,
       );
       if (!isMounted.current) return;
@@ -106,11 +103,7 @@ export function useContactRequestForm() {
       setErrors({});
       setTouchedFields({});
       setStatus("success");
-      setStatusMessage(
-        result === "sent"
-          ? "Благодарим! Запитването е изпратено успешно. Ще се свържем с вас скоро."
-          : "Отворихме вашето email приложение. Изпратете готовото съобщение, за да получим запитването ви.",
-      );
+      setStatusMessage("Благодарим! Запитването е изпратено успешно. Ще се свържем с вас скоро.");
     } catch (error) {
       if (!isMounted.current) return;
 

@@ -26,14 +26,18 @@ describe("contact API", () => {
   });
 
   it("returns sent after a successful submission", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+    const fetchMock = vi.fn().mockResolvedValue(
       new Response(JSON.stringify({ message: "Запитването е прието." }), {
         status: 201,
         headers: { "Content-Type": "application/json" },
       }),
-    ));
+    );
+    vi.stubGlobal("fetch", fetchMock);
 
     await expect(submitContactRequest(values)).resolves.toBe("sent");
+
+    const request = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    expect(JSON.parse(String(request.body))).toEqual({ ...values, website: "" });
   });
 
   it("maps server field errors to the frontend contract", async () => {
@@ -62,5 +66,17 @@ describe("contact API", () => {
       name: "ContactRequestError",
       message: "Не успяхме да се свържем със сървъра. Проверете интернет връзката и опитайте отново.",
     });
+  });
+
+  it("shows a Bulgarian configuration error instead of opening an email client", async () => {
+    vi.stubEnv("VITE_CONTACT_FORM_ENDPOINT", "");
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(submitContactRequest(values)).rejects.toMatchObject({
+      name: "ContactRequestError",
+      message: "Формата временно не е достъпна. Моля, свържете се с нас по телефон или email.",
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

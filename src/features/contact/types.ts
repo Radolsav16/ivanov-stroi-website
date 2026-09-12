@@ -14,8 +14,6 @@ export type ContactFormErrors = Partial<Record<ContactFieldName, string>>;
 
 export type ContactFormStatus = "idle" | "submitting" | "success" | "error";
 
-export const contactHoneypotFieldName = "contact_company_fax" as const;
-
 export const emptyContactFormValues: ContactFormValues = {
   name: "",
   phone: "",
