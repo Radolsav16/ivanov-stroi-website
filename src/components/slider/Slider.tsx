@@ -14,7 +14,7 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
   return (
     <section className="overflow-hidden bg-gray-950 py-24 sm:py-32">
       <Container>
-        <h2 className="sr-only">Галерия от реализирани проекти</h2>
+        <h2 className="sr-only">Галерия със строителни и ремонтни дейности</h2>
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="mb-5 flex items-center gap-3">
@@ -26,7 +26,7 @@ export default function Slider({ showGalleryLink = true }: SliderProps) {
             </div>
 
             <p className="mt-4 max-w-2xl text-gray-400">
-              Разгледайте част от реализираните ни ремонти и строителни решения.
+              Разгледайте примери от строителни, ремонтни и довършителни дейности.
             </p>
           </div>
 

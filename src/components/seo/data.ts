@@ -35,7 +35,7 @@ export const organizationSchema = {
     },
     {
       "@type": "WebPage",
-      name: "Строителна фирма в София",
+      name: "Строителни и ремонтни услуги в София",
       description: businessDescription,
       inLanguage: "bg",
       ...(absoluteUrl("/") ? { url: absoluteUrl("/") } : {}),

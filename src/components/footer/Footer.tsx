@@ -83,7 +83,7 @@ export default function Footer() {
                 hover:text-amber-500
               "
             >
-              Направи запитване
+              Свържете се с нас
               <ArrowRightIcon
                 className="
                   size-4

@@ -1,9 +1,7 @@
-import { lazy, Suspense } from "react";
 import { ArrowRight, ClipboardList } from "lucide-react";
 import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import ActionLink from "../../shared/ui/ActionLink";
 import Container from "../../shared/ui/Container";
-import DeferredSection from "../../shared/ui/DeferredSection";
 import SectionHeading from "../../shared/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 
@@ -12,15 +10,13 @@ import Layout from "../../Layout";
 import ProjectsShowcase from "../../features/projects/ProjectsShowcase";
 import Seo from "../../components/seo/Seo";
 
-const Reviews = lazy(() => import("../../components/reviews/Reviews"));
-
 export default function Gallery() {
   return (
     <Layout>
       <main className="overflow-hidden bg-gray-950 text-white">
         <Seo
-          title="Реализирани строителни и ремонтни проекти в София"
-          description="Разгледайте част от реализираните проекти на IVANOV STROI в София."
+          title="Галерия със строителни и ремонтни дейности"
+          description="Разгледайте галерия със строителни, ремонтни и довършителни дейности."
           path="/gallery"
         />
         <section className="relative isolate overflow-hidden bg-gray-950">
@@ -42,14 +38,14 @@ export default function Gallery() {
             <div className="flex min-h-[calc(100vh-120px)] items-center py-24 sm:py-32 lg:py-40">
               <div className="max-w-3xl">
                 <h1 className="animate-fade-up max-w-4xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                  Реализирани проекти
+                  Галерия
                   <br />
                   <span className="text-amber-500">Създадени с внимание</span>
                 </h1>
 
                 <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">
-                  Вижте част от реализираните ни проекти и добийте представа за
-                  нашия подход към различни пространства.
+                  Разгледайте примери от строителни и ремонтни дейности и добийте
+                  представа за различни решения за дома.
                 </p>
               </div>
             </div>
@@ -195,12 +191,6 @@ export default function Gallery() {
           </Container>
         </section>
 
-      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
-          <Suspense fallback={null}>
-            <Reviews />
-          </Suspense>
-        </DeferredSection>
-
         <section className="relative isolate overflow-hidden pb-16 pt-20 sm:pb-36 sm:pt-28">
           <div aria-hidden="true" className="absolute inset-0 -z-20">
             <OptimizedImage
@@ -235,7 +225,7 @@ export default function Gallery() {
                 className="rounded-full px-7 font-bold hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]"
                 icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
               >
-                Направи запитване
+                Свържете се с нас
               </ActionLink>
             </div>
           </Container>

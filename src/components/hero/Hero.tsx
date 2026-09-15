@@ -102,7 +102,7 @@ export default function Hero() {
                 to="/contact-us"
                 className="duration-200"
               >
-                Направи запитване
+                Свържете се с нас
               </ActionLink>
               <ActionLink
                 to="/gallery"
@@ -116,9 +116,9 @@ export default function Hero() {
             <div className="mt-14 border-t border-white/10 pt-8">
               <div className="flex flex-wrap gap-x-10 gap-y-6">
                 <div>
-                  <p className="text-2xl font-bold text-white">10+</p>
+                  <p className="text-2xl font-bold text-white">Лично</p>
 
-                  <p className="mt-1 text-sm text-gray-400">години опит</p>
+                  <p className="mt-1 text-sm text-gray-400">отношение</p>
                 </div>
 
                 <div className="hidden h-12 w-px bg-white/10 sm:block" />

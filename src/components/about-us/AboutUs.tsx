@@ -4,7 +4,6 @@ import {
   Phone,
   Hammer,
 } from "lucide-react";
-import { lazy, Suspense } from "react";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 import Seo from "../seo/Seo";
 import { OptimizedImage } from "../../shared/ui/OptimizedImage";
@@ -13,9 +12,6 @@ import Layout from "../../Layout";
 import { contactDetails } from "../../data/contact";
 import ActionLink from "../../shared/ui/ActionLink";
 import Container from "../../shared/ui/Container";
-import DeferredSection from "../../shared/ui/DeferredSection";
-
-const Reviews = lazy(() => import("../reviews/Reviews"));
 
 const AboutUs = () => {
   return (
@@ -61,7 +57,7 @@ const AboutUs = () => {
                   className="font-bold"
                   icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
                 >
-                  Направи запитване
+                  Свържете се с нас
                 </ActionLink>
 
                 <ActionLink
@@ -101,7 +97,7 @@ const AboutUs = () => {
                 <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10">
                   <OptimizedImage
                     url={`${CLOUDINARY_BASE_URL}/v1787867342/service-img-13.jpg`}
-                    alt="IVANOV STROI в процес на работа"
+                    alt="Строителни и довършителни дейности"
                     sizes="(min-width: 1024px) 45vw, 100vw"
                     className="size-full object-cover transition duration-700 hover:scale-105"
                   />
@@ -111,7 +107,7 @@ const AboutUs = () => {
                   <div className="aspect-[3/4]">
                     <OptimizedImage
                       url={`${CLOUDINARY_BASE_URL}/v1787591081/service-img-1.jpg`}
-                      alt="IVANOV STROI в процес на работа"
+                      alt="Работа по интериорно пространство"
                       sizes="208px"
                       className="size-full object-cover"
                     />
@@ -138,17 +134,11 @@ const AboutUs = () => {
         </section>
 
         <HowWeWork />
-      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
-          <Suspense fallback={null}>
-            <Reviews />
-          </Suspense>
-        </DeferredSection>
-
         <section className="relative isolate overflow-hidden border-t border-white/10 py-20 sm:py-28 lg:py-36">
           <div className="absolute inset-0 -z-20">
             <OptimizedImage
               url={`${CLOUDINARY_BASE_URL}/v1787864650/service-img-12.jpg`}
-              alt="Завършен строителен проект на IvanStroi"
+              alt="Завършено интериорно пространство"
               width={1920}
               className="size-full object-cover"
             />
@@ -193,7 +183,7 @@ const AboutUs = () => {
                 className="px-7 font-bold shadow-xl shadow-amber-500/10 hover:-translate-y-0.5 hover:shadow-amber-500/20"
                 icon={<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />}
               >
-                Направи запитване
+                Свържете се с нас
               </ActionLink>
 
               <ActionLink

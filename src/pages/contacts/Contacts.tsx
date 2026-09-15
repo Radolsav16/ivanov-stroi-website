@@ -1,19 +1,16 @@
 import {
   ArrowUpRightIcon,
+  EnvelopeIcon,
   MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { lazy, Suspense, useState } from "react";
-import ContactRequestForm from "../../features/contact/ContactRequestForm";
+import { useState } from "react";
 import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import Seo from "../../components/seo/Seo";
 import Container from "../../shared/ui/Container";
-import DeferredSection from "../../shared/ui/DeferredSection";
 import { contactDetails } from "../../data/contact";
 import Layout from "../../Layout";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
-
-const Reviews = lazy(() => import("../../components/reviews/Reviews"));
 
 const googleMapsEmbedUrl =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93836.37954469488!2d23.241374288250867!3d42.695528666755244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682cb317bf5%3A0x400a01269bf5e60!2sSofia!5e0!3m2!1sen!2sbg!4v1787930044869!5m2!1sen!2sbg";
@@ -22,9 +19,16 @@ const contactCards = [
   {
     label: "Обадете ни се",
     title: contactDetails.phone,
-    description: "Понеделник – Петък · 08:00 – 18:00",
+    description: "Обадете се за оглед и уточняване на детайлите.",
     href: contactDetails.phoneHref,
     Icon: PhoneIcon,
+  },
+  {
+    label: "Пишете ни",
+    title: contactDetails.email,
+    description: "Изпратете кратко описание на проекта по имейл.",
+    href: contactDetails.emailHref,
+    Icon: EnvelopeIcon,
   },
 ];
 
@@ -145,15 +149,25 @@ function ContactContent() {
       <div aria-hidden="true" className="absolute -right-60 bottom-0 -z-10 size-[450px] rounded-full bg-amber-500/5 blur-[120px] sm:size-[600px]" />
 
       <Container padding="page" className="relative">
-        <div className="grid grid-cols-1 items-start gap-6 md:gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-10 xl:gap-14">
-          <div className="relative min-w-0 rounded-2xl border border-white/10 bg-gray-950/85 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:rounded-3xl sm:p-7 md:p-8 lg:mt-8 lg:p-10">
+        <div className="grid grid-cols-1 items-start gap-6 md:gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(320px,1.15fr)] lg:gap-10 xl:gap-14">
+          <div className="relative min-w-0 rounded-2xl border border-white/10 bg-gray-950/85 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:rounded-3xl sm:p-8 lg:mt-8 lg:p-10">
             <div aria-hidden="true" className="absolute left-6 right-6 top-0 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70 sm:left-8 sm:right-8" />
-            <div className="mb-7 sm:mb-8">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-500 sm:text-xs">Запитване</p>
-              <h2 className="mt-2 text-2xl font-black leading-tight text-white sm:text-3xl">Разкажете ни за вашия проект</h2>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-gray-500">Опишете накратко какво искате да направим и ще се свържем с вас.</p>
-            </div>
-            <ContactRequestForm idPrefix="page-contact" variant="page" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-500 sm:text-xs">Преди разговора</p>
+            <h2 className="mt-3 text-2xl font-black leading-tight text-white sm:text-3xl">Подгответе основните детайли</h2>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-gray-400 sm:text-base">
+              За да бъдем максимално полезни още при първия контакт, споделете вида на имота, желаните дейности, приблизителния срок и района на обекта.
+            </p>
+            <ul className="mt-8 space-y-4 text-sm leading-6 text-gray-300 sm:text-base">
+              {["Вид и размер на пространството", "Какви дейности планирате", "Предпочитан период за изпълнение", "Адрес или район на обекта"].map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-amber-500" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 rounded-2xl border border-amber-500/20 bg-amber-500/[0.06] p-4 text-sm leading-6 text-gray-300">
+              Контактът се осъществява директно по телефон или имейл.
+            </p>
           </div>
           <div className="flex min-w-0 flex-col gap-5 lg:pt-8">
             {contactCards.map((card) => <ContactInfoCard key={card.href} {...card} />)}
@@ -172,11 +186,6 @@ export default function Contacts() {
         <Seo title="Контакти за ремонт и строителство в София" description="Свържете се с IVANOV STROI за оглед и оферта за строителни, ремонтни и довършителни услуги в София и околностите." path="/contact-us" />
         <ContactsHero />
         <ContactContent />
-      <DeferredSection placeholderClassName="min-h-[820px] bg-gray-950 sm:min-h-[900px]">
-          <Suspense fallback={null}>
-            <Reviews />
-          </Suspense>
-        </DeferredSection>
       </main>
     </Layout>
   );

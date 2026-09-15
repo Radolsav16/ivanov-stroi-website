@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const SITE_NAME = "IVANOV STROI";
-const DEFAULT_TITLE = "Строителна фирма в София | IVANOV STROI";
+const DEFAULT_TITLE = "Строителни и ремонтни услуги в София | IVANOV STROI";
 const DEFAULT_DESCRIPTION =
   "IVANOV STROI предлага строителни, ремонтни и довършителни услуги в София и околностите.";
 const DEFAULT_IMAGE =

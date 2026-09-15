@@ -51,7 +51,7 @@ export default function ProjectsShowcase() {
             <h2 className="mt-3 text-3xl font-black text-white sm:text-4xl">Резултати, които остават</h2>
           </div>
           <Link to="/contact-us" className="group inline-flex items-center gap-2 font-bold text-amber-500">
-            Направете запитване <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            Свържете се с нас <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
