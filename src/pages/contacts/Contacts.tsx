@@ -3,7 +3,7 @@ import {
   MapPinIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import ContactRequestForm from "../../features/contact/ContactRequestForm";
 import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import Seo from "../../components/seo/Seo";
@@ -14,6 +14,9 @@ import Layout from "../../Layout";
 import { CLOUDINARY_BASE_URL } from "../../utils/url";
 
 const Reviews = lazy(() => import("../../components/reviews/Reviews"));
+
+const googleMapsEmbedUrl =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93836.37954469488!2d23.241374288250867!3d42.695528666755244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682cb317bf5%3A0x400a01269bf5e60!2sSofia!5e0!3m2!1sen!2sbg!4v1787930044869!5m2!1sen!2sbg";
 
 const contactCards = [
   {
@@ -80,6 +83,8 @@ function ContactInfoCard({
 }
 
 function LocationCard() {
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+
   return (
     <div className="group min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-950/80 shadow-xl shadow-black/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 sm:rounded-3xl">
       <div className="p-6 sm:p-8">
@@ -94,13 +99,31 @@ function LocationCard() {
         <p className="mt-2 text-sm leading-6 text-gray-500">Работим в {contactDetails.serviceArea}.</p>
       </div>
       <div className="relative aspect-[16/9] min-h-[220px] overflow-hidden border-t border-white/10 sm:min-h-[250px]">
-        <iframe
-          title="IVANOV STROI - София"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93836.37954469488!2d23.241374288250867!3d42.695528666755244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682cb317bf5%3A0x400a01269bf5e60!2sSofia!5e0!3m2!1sen!2sbg!4v1787930044869!5m2!1sen!2sbg"
-          className="absolute inset-0 h-full w-full border-0 grayscale-[0.7] opacity-75 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        {isMapLoaded ? (
+          <iframe
+            title="IVANOV STROI - София"
+            src={googleMapsEmbedUrl}
+            className="absolute inset-0 h-full w-full border-0 grayscale-[0.7] opacity-75 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 px-6 text-center">
+            <span className="flex size-12 items-center justify-center rounded-full bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/20">
+              <MapPinIcon aria-hidden="true" className="size-6" />
+            </span>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-gray-400">
+              Картата се предоставя от Google и се зарежда само след ваше действие.
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsMapLoaded(true)}
+              className="mt-4 min-h-11 rounded-xl bg-amber-500 px-5 py-3 text-sm font-black text-gray-950 transition-colors hover:bg-amber-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500"
+            >
+              Покажи картата
+            </button>
+          </div>
+        )}
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Sofia,Bulgaria" target="_blank" rel="noopener noreferrer" className="flex min-h-[52px] items-center justify-between gap-4 border-t border-white/10 px-6 py-4 text-sm font-bold text-amber-500 transition-colors hover:bg-white/[0.03] sm:px-8">
         <span>Виж в Google Maps</span>

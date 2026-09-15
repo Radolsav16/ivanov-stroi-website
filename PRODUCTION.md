@@ -1,105 +1,110 @@
-# Production deployment
+# Production release checklist
 
-## Requirements
+The production architecture is a React/Vite frontend on Vercel and one ASP.NET
+Core API on Render backed by MongoDB Atlas.
 
-- Node.js 20.19–20.x or 22.12+
-- npm with the lockfile from this repository
-- A static frontend host with SPA routing (the included configuration targets Vercel)
-- A separately deployed Node.js environment for the contact API and MongoDB Atlas
+## 1. Build and automated checks
 
-## Required environment configuration
+- [ ] `npm ci`
+- [ ] `npm run lint`
+- [ ] `npm test`
+- [ ] `npm run build`
+- [ ] `dotnet test ProjectsApi.Tests`
+- [ ] `docker build -t ivan-stroi-api ProjectsApi`
+- [ ] `npm audit --omit=dev` reviewed
 
-### Frontend
+## 2. Production configuration
 
-Copy `.env.example` to a local, untracked `.env` file and set the values supplied
-by the deployment environment.
+### Vercel
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `VITE_SITE_URL` | Yes | Absolute public HTTPS URL. Enables canonical URLs and sitemap generation. |
-| `VITE_CONTACT_FORM_ENDPOINT` | Recommended | Absolute HTTPS API endpoint for contact form requests. Omit only to use the email-client fallback. |
-| `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Optional | Google Search Console ownership token. |
+- [ ] `VITE_SITE_URL` is the final canonical HTTPS domain
+- [ ] `VITE_CONTACT_FORM_ENDPOINT` is the Render `/api/contact` URL
+- [ ] `VITE_PROJECTS_API_URL` is either empty or the explicit Render projects URL
+- [ ] no secrets are stored in a `VITE_` variable
 
-All `VITE_` variables are public build-time configuration. Never place database
-credentials, API secrets, private keys, or Cloudinary API secrets in them.
+### Render
 
-### Contact API
+- [ ] service root is `ProjectsApi`
+- [ ] deployment uses `ProjectsApi/Dockerfile`
+- [ ] health check path is `/ready`
+- [ ] `MONGODB_URI` and `MONGODB_DATABASE` are configured
+- [ ] `ASPNETCORE_ENVIRONMENT=Production`
+- [ ] `ALLOWED_ORIGINS` contains only the active frontend origins
+- [ ] Resend sender domain has verified SPF and DKIM records
+- [ ] `CONTACT_EMAIL_ENABLED=true`
+- [ ] `RESEND_API_KEY` is stored only in Render
+- [ ] `CONTACT_EMAIL_FROM` uses the verified sending domain
+- [ ] `CONTACT_EMAIL_TO` matches the public client email
 
-Copy `server/.env.example` to `server/.env` in the API runtime only.
+### MongoDB Atlas
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `MONGODB_URI` | Yes | Private MongoDB Atlas connection string. |
-| `PORT` | Depends on host | Port exposed by the Node.js process. |
-| `ALLOWED_ORIGINS` | Yes | Exact comma-separated frontend HTTPS origins allowed by CORS. |
-| `TRUST_PROXY` | Depends on host | Set to `true` only behind one trusted reverse proxy. |
-| `DNS_SERVERS` | Optional | DNS resolvers for environments with Atlas SRV lookup issues. |
+- [ ] a dedicated least-privilege database user is used
+- [ ] network access is restricted to the deployed API requirements
+- [ ] backups and retention are configured by the account owner
+- [ ] production credentials are not committed or shared in documents
 
-Set `NODE_ENV=production` in the API runtime. Keep this file out of Git.
+## 3. Domain and HTTPS
 
-## Local production check
+- [ ] custom domain is owned by the client
+- [ ] apex and `www` are added to Vercel
+- [ ] one host is canonical and the other redirects to it
+- [ ] DNS is verified
+- [ ] Vercel SSL certificate is active and renews automatically
+- [ ] HTTP redirects to the canonical HTTPS URL
+- [ ] `VITE_SITE_URL` and Render `ALLOWED_ORIGINS` were updated after the domain change
+- [ ] the frontend and API were redeployed after environment changes
 
-```bash
-npm ci
-npm run lint
-npm test
-npm run server:test
-npm run build
-npm run preview
-```
+## 4. Production smoke test
 
-Test the frontend with an HTTPS contact endpoint or without
-`VITE_CONTACT_FORM_ENDPOINT`; a production build intentionally rejects configured
-HTTP or localhost API endpoints.
+- [ ] `/`, `/gallery`, `/about-us`, `/contact-us` and every service route load directly
+- [ ] desktop and mobile navigation work
+- [ ] phone, email and Google Maps links work
+- [ ] required images and fonts load without console errors
+- [ ] invalid contact data produces Bulgarian field errors
+- [ ] one authorized real contact request succeeds and is present in MongoDB
+- [ ] the same request produces one email at the configured client address
+- [ ] the MongoDB notification status is `sent`
+- [ ] timeout, server error and rate-limit messages are Bulgarian
+- [ ] `/health`, `/ready` and `/api/projects` return valid responses
+- [ ] CORS rejects an unapproved origin
+- [ ] `robots.txt` and `sitemap.xml` use the final domain
+- [ ] Lighthouse and Core Web Vitals are reviewed on the final domain
 
-## Hosting configuration
+## 5. Privacy and legal content
 
-The included `vercel.json` provides SPA routing and conservative headers:
+The contact form processes a visitor's name, telephone number, email address,
+requested service and message. The client must approve the final legal text.
 
-- `X-Content-Type-Options: nosniff`
-- `Referrer-Policy: strict-origin-when-cross-origin`
-- `X-Frame-Options: SAMEORIGIN`
-- a restricted `Permissions-Policy`
+- [ ] privacy notice identifies the data controller
+- [ ] purposes and legal basis are stated
+- [ ] retention period or retention criteria are stated
+- [ ] processors and international transfers are described where applicable
+- [ ] data-subject rights and a contact channel are stated
+- [ ] the form links to the privacy notice before submission
+- [ ] Google Maps is consent-gated or its loading is covered by the approved policy
+- [ ] analytics or advertising scripts are not added without an appropriate consent flow
+- [ ] company identity and public contact information are approved by the client
 
-Configure HTTPS and domain redirects in the hosting provider. Enable compression
-and leave hashed static assets on the provider's immutable cache policy. Do not add
-a Content-Security-Policy without first including the final contact API endpoint,
-Cloudinary, and Google Maps in the policy.
+Use `docs/LEGAL-CONTENT-INPUTS.md` to collect the information required from the
+client. Legal text should be reviewed by a qualified Bulgarian professional.
 
-The frontend host must not expose backend environment variables. Configure the API
-as a separate service and add the final frontend domain to `ALLOWED_ORIGINS`.
+## 6. Search and launch
 
-## External services
+- [ ] a Google Search Console Domain property is verified through DNS
+- [ ] the final `/sitemap.xml` is submitted
+- [ ] the home page and important service pages are inspected and indexing requested
+- [ ] canonical, Open Graph and structured-data URLs use the final domain
+- [ ] search indexing is monitored after launch
 
-- **Cloudinary:** only public image delivery URLs are used by the frontend. No
-  upload preset, API key, or API secret is stored in this repository.
-- **Google Maps:** a lazy-loaded Sofia embed is used on the contacts page.
-- **MongoDB Atlas:** used only by the contact API. Allow the API host's egress IP
-  in Atlas and keep the connection string in the API environment.
-- **Google Search Console:** submit `/sitemap.xml` only after `VITE_SITE_URL` is
-  configured and the production build has generated it.
+## 7. Client handover
 
-## Release checklist
+- [ ] client gives written acceptance of design, text and functionality
+- [ ] ownership and access are documented for domain, Vercel, Render, Atlas, Cloudinary and GitHub
+- [ ] recovery methods and two-factor authentication belong to the correct owner
+- [ ] temporary or shared credentials are rotated
+- [ ] recurring hosting costs and billing owner are documented
+- [ ] maintenance, backups, incident response and future changes have an agreed owner
+- [ ] a final release tag or commit is recorded
 
-### Environment
-
-- [ ] Public frontend URL is set in `VITE_SITE_URL`.
-- [ ] Contact API endpoint is HTTPS, not localhost, and configured when used.
-- [ ] API has `MONGODB_URI` and exact production `ALLOWED_ORIGINS`.
-- [ ] No `.env` or credential files are tracked by Git.
-
-### Build and application
-
-- [ ] `npm run lint`, `npm test`, `npm run server:test`, and `npm run build` pass.
-- [ ] Production preview has no console errors, broken routes, or broken images.
-- [ ] Contact form success, failure, and rate-limit states are tested.
-- [ ] Health (`/health`) and readiness (`/ready`) endpoints are checked on the API.
-- [ ] Unknown URLs return an HTTP 404 at the hosting layer, not only the React 404 UI.
-
-### Security and operations
-
-- [ ] HTTPS and preferred-domain redirects are enabled by the host.
-- [ ] Hosting security headers are confirmed in the deployed response.
-- [ ] `npm audit --omit=dev` is reviewed before release.
-- [ ] MongoDB Atlas permits only the deployed API environment as required.
-- [ ] Backup, log retention, and error monitoring policies are defined by the operator.
+The project is complete only after the required items above are either checked or
+explicitly accepted as a documented client responsibility.

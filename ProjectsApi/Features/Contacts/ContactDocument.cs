@@ -20,6 +20,16 @@ public sealed class ContactDocument
     public required string Message { get; init; }
     [BsonElement("status")]
     public string Status { get; init; } = "new";
+    [BsonElement("notificationStatus")]
+    public string NotificationStatus { get; init; } = "pending";
+    [BsonElement("notificationAttempts")]
+    public int NotificationAttempts { get; init; }
+    [BsonElement("notificationLastError")]
+    [BsonIgnoreIfNull]
+    public string? NotificationLastError { get; init; }
+    [BsonElement("notifiedAt")]
+    [BsonIgnoreIfNull]
+    public DateTime? NotifiedAt { get; init; }
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 }

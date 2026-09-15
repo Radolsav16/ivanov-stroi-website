@@ -4,11 +4,13 @@ using MongoDB.Driver;
 using ProjectsApi.Common;
 using ProjectsApi.Features.Contacts;
 using ProjectsApi.Features.Projects;
+using ProjectsApi.Infrastructure.Email;
 using ProjectsApi.Infrastructure.MongoDb;
 
 var builder = WebApplication.CreateBuilder(args);
 var apiOptions = ApiOptions.FromConfiguration(builder.Configuration, builder.Environment.IsDevelopment());
 var mongoOptions = MongoDbOptions.FromConfiguration(builder.Configuration);
+var contactEmailOptions = ContactEmailOptions.FromConfiguration(builder.Configuration);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
@@ -20,6 +22,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Services.AddSingleton(apiOptions);
 builder.Services.AddSingleton(mongoOptions);
+builder.Services.AddSingleton(contactEmailOptions);
 builder.Services.AddSingleton<IMongoClient>(_ =>
 {
     var settings = MongoClientSettings.FromConnectionString(mongoOptions.ConnectionString);
@@ -33,6 +36,11 @@ builder.Services.AddHostedService<MongoDbIndexesHostedService>();
 
 builder.Services.AddScoped<ContactRequestValidator>();
 builder.Services.AddScoped<IContactRepository, MongoContactRepository>();
+builder.Services.AddHttpClient<IContactNotifier, ResendContactNotifier>(client =>
+{
+    client.BaseAddress = new Uri("https://api.resend.com/");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
 builder.Services.AddScoped<ContactService>();
 builder.Services.AddScoped<IProjectsRepository, MongoProjectsRepository>();
 builder.Services.AddScoped<ProjectsService>();
