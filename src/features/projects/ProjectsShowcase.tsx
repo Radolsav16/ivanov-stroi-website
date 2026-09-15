@@ -12,7 +12,9 @@ function resolveImageUrl(imageUrl: string) {
 }
 
 export default function ProjectsShowcase() {
-  const [projects, setProjects] = useState<Project[] | null>(null);
+  // The static gallery is immediately available while the Render API wakes up.
+  // API projects replace it only when the server returns real records.
+  const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,21 +26,6 @@ export default function ProjectsShowcase() {
       });
     return () => controller.abort();
   }, []);
-
-  if (projects === null) {
-    return (
-      <section aria-busy="true" aria-label="Зареждане на проекти" className="bg-gray-950 py-20 sm:py-28">
-        <Container>
-          <div className="h-10 w-72 max-w-full animate-pulse rounded-xl bg-white/10" />
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[0, 1, 2].map((item) => (
-              <div key={item} className="h-80 animate-pulse rounded-3xl bg-white/5" />
-            ))}
-          </div>
-        </Container>
-      </section>
-    );
-  }
 
   if (projects.length === 0) return <Slider showGalleryLink={false} />;
 
