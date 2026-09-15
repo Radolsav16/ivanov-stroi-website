@@ -30,6 +30,11 @@ Core API on Render backed by MongoDB Atlas.
 - [ ] `MONGODB_URI` and `MONGODB_DATABASE` are configured
 - [ ] `ASPNETCORE_ENVIRONMENT=Production`
 - [ ] `ALLOWED_ORIGINS` contains only the active frontend origins
+- [ ] Resend sender domain has verified SPF and DKIM records
+- [ ] `CONTACT_EMAIL_ENABLED=true`
+- [ ] `RESEND_API_KEY` is stored only in Render
+- [ ] `CONTACT_EMAIL_FROM` uses the verified sending domain
+- [ ] `CONTACT_EMAIL_TO` matches the public client email
 
 ### MongoDB Atlas
 
@@ -57,6 +62,8 @@ Core API on Render backed by MongoDB Atlas.
 - [ ] required images and fonts load without console errors
 - [ ] invalid contact data produces Bulgarian field errors
 - [ ] one authorized real contact request succeeds and is present in MongoDB
+- [ ] the same request produces one email at the configured client address
+- [ ] the MongoDB notification status is `sent`
 - [ ] timeout, server error and rate-limit messages are Bulgarian
 - [ ] `/health`, `/ready` and `/api/projects` return valid responses
 - [ ] CORS rejects an unapproved origin

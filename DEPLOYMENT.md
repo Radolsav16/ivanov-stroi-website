@@ -30,6 +30,7 @@ npm run build
 npm run preview
 dotnet test ProjectsApi.Tests
 docker build -t ivan-stroi-api ProjectsApi
+docker build -f ProjectsApi.Tests/Dockerfile -t ivan-stroi-api-tests .
 ```
 
 `npm run build` performs TypeScript checking and emits the static site in `dist/`.
@@ -63,6 +64,10 @@ to the frontend project settings or Git.
 | `ASPNETCORE_ENVIRONMENT` | Yes | Set to `Production`. | Server-only |
 | `PORT` | Host-provided | Render injects the API listening port. | Server-only |
 | `ALLOWED_ORIGINS` | Yes | Exact comma-separated HTTPS frontend origins allowed by CORS. | Server-only |
+| `CONTACT_EMAIL_ENABLED` | Yes for notifications | Set to `true` only after the sender domain is verified. | Server-only |
+| `RESEND_API_KEY` | Yes for notifications | Private Resend API key. | Secret |
+| `CONTACT_EMAIL_FROM` | Yes for notifications | Sender on the verified domain. | Server-only |
+| `CONTACT_EMAIL_TO` | Yes for notifications | Recipient of new inquiries. | Server-only |
 
 ## Frontend deployment (Vercel)
 
@@ -99,6 +104,27 @@ Web Service from this repository.
    then rebuild and redeploy the frontend.
 6. Verify `GET /health`, `GET /ready`, `GET /api/projects`, a valid contact request,
    validation errors, and rate limiting. The projects API is intentionally read-only.
+
+## Contact email notifications
+
+Contact requests are stored before an email is attempted, so a temporary email
+provider problem cannot lose the inquiry or encourage duplicate submissions.
+MongoDB records `notificationStatus`, `notificationAttempts`,
+`notificationLastError` and `notifiedAt` for operational checks.
+
+1. Create a Resend account owned by the client or explicitly delegated to the operator.
+2. Add a sending subdomain such as `notifications.example.com`.
+3. Add the exact SPF and DKIM records shown by Resend to the domain DNS.
+4. Wait until the sending domain is verified.
+5. Create a restricted sending API key and store it only in Render.
+6. Configure `CONTACT_EMAIL_FROM`, for example
+   `IVANOV STROI <zapitvane@notifications.example.com>`.
+7. Set `CONTACT_EMAIL_TO` to the public client address from `src/data/contact.ts`.
+8. Set `CONTACT_EMAIL_ENABLED=true`, redeploy and submit one authorized test request.
+
+The API uses a unique idempotency key for each inquiry. Provider failures are
+logged and recorded in MongoDB while the frontend still confirms that the inquiry
+itself was safely accepted.
 
 The obsolete SQL Server project, EF migrations and demo seed code have been removed.
 There were no SQL Server records to migrate. New project records are stored in the

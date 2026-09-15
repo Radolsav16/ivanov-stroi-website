@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectsApi.Features.Contacts;
@@ -40,7 +41,11 @@ public sealed class ContactControllerTests
 
     private static ContactController CreateController()
     {
-        var service = new ContactService(new ContactRequestValidator(), new FakeContactRepository());
+        var service = new ContactService(
+            new ContactRequestValidator(),
+            new FakeContactRepository(),
+            new FakeContactNotifier(),
+            NullLogger<ContactService>.Instance);
         return new ContactController(service)
         {
             ControllerContext = new ControllerContext
@@ -57,5 +62,23 @@ public sealed class ContactControllerTests
     {
         public Task CreateAsync(ContactDocument contact, CancellationToken cancellationToken) =>
             Task.CompletedTask;
+
+        public Task MarkNotificationSentAsync(string contactId, CancellationToken cancellationToken) =>
+            Task.CompletedTask;
+
+        public Task MarkNotificationSkippedAsync(string contactId, CancellationToken cancellationToken) =>
+            Task.CompletedTask;
+
+        public Task MarkNotificationFailedAsync(
+            string contactId,
+            string errorCode,
+            CancellationToken cancellationToken) =>
+            Task.CompletedTask;
+    }
+
+    private sealed class FakeContactNotifier : IContactNotifier
+    {
+        public Task<bool> SendAsync(ContactDocument contact, CancellationToken cancellationToken) =>
+            Task.FromResult(true);
     }
 }

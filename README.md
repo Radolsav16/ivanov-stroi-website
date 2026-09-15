@@ -65,6 +65,10 @@ API variables are server-only:
 - `MONGODB_DATABASE`
 - `ALLOWED_ORIGINS`
 - `ASPNETCORE_ENVIRONMENT=Production`
+- `CONTACT_EMAIL_ENABLED=true` — enables automatic contact notifications
+- `RESEND_API_KEY` — server-only Resend API key
+- `CONTACT_EMAIL_FROM` — sender on a verified domain
+- `CONTACT_EMAIL_TO` — notification recipient; keep aligned with `src/data/contact.ts`
 
 ## Quality checks
 
@@ -74,6 +78,7 @@ npm test
 npm run build
 dotnet test ProjectsApi.Tests
 docker build -t ivan-stroi-api ProjectsApi
+docker build -f ProjectsApi.Tests/Dockerfile -t ivan-stroi-api-tests .
 ```
 
 ## Deployment
