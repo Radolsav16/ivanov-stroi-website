@@ -8,7 +8,7 @@ the surrounding area.
 - `src/` — React 19, TypeScript, Vite and Tailwind CSS frontend
 - `ProjectsApi/` — modular ASP.NET Core API
 - `ProjectsApi.Tests/` — backend unit and endpoint tests
-- MongoDB Atlas — projects and contact requests
+- MongoDB Atlas — optional API-managed projects
 - Vercel — frontend hosting
 - Render — Docker-hosted C# API
 
@@ -17,7 +17,6 @@ The former Node.js API has been retired. The only production backend is
 
 ## Public API
 
-- `POST /api/contact` — validates and stores a contact request
 - `GET /api/projects` — returns the public projects collection
 - `GET /health` — process liveness
 - `GET /ready` — MongoDB readiness
@@ -55,8 +54,7 @@ real credentials.
 Frontend build-time variables are public:
 
 - `VITE_SITE_URL` — canonical HTTPS website URL
-- `VITE_CONTACT_FORM_ENDPOINT` — full HTTPS URL ending in `/api/contact`
-- `VITE_PROJECTS_API_URL` — optional explicit projects endpoint
+- `VITE_PROJECTS_API_URL` — optional read-only projects endpoint
 - `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` — optional ownership token
 
 API variables are server-only:
@@ -65,10 +63,6 @@ API variables are server-only:
 - `MONGODB_DATABASE`
 - `ALLOWED_ORIGINS`
 - `ASPNETCORE_ENVIRONMENT=Production`
-- `CONTACT_EMAIL_ENABLED=true` — enables automatic contact notifications
-- `RESEND_API_KEY` — server-only Resend API key
-- `CONTACT_EMAIL_FROM` — sender on a verified domain
-- `CONTACT_EMAIL_TO` — notification recipient; keep aligned with `src/data/contact.ts`
 
 ## Quality checks
 

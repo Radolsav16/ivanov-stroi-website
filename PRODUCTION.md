@@ -18,8 +18,7 @@ Core API on Render backed by MongoDB Atlas.
 ### Vercel
 
 - [ ] `VITE_SITE_URL` is the final canonical HTTPS domain
-- [ ] `VITE_CONTACT_FORM_ENDPOINT` is the Render `/api/contact` URL
-- [ ] `VITE_PROJECTS_API_URL` is either empty or the explicit Render projects URL
+- [ ] `VITE_PROJECTS_API_URL` is empty (static gallery) or the explicit Render projects URL
 - [ ] no secrets are stored in a `VITE_` variable
 
 ### Render
@@ -30,11 +29,6 @@ Core API on Render backed by MongoDB Atlas.
 - [ ] `MONGODB_URI` and `MONGODB_DATABASE` are configured
 - [ ] `ASPNETCORE_ENVIRONMENT=Production`
 - [ ] `ALLOWED_ORIGINS` contains only the active frontend origins
-- [ ] Resend sender domain has verified SPF and DKIM records
-- [ ] `CONTACT_EMAIL_ENABLED=true`
-- [ ] `RESEND_API_KEY` is stored only in Render
-- [ ] `CONTACT_EMAIL_FROM` uses the verified sending domain
-- [ ] `CONTACT_EMAIL_TO` matches the public client email
 
 ### MongoDB Atlas
 
@@ -60,11 +54,6 @@ Core API on Render backed by MongoDB Atlas.
 - [ ] desktop and mobile navigation work
 - [ ] phone, email and Google Maps links work
 - [ ] required images and fonts load without console errors
-- [ ] invalid contact data produces Bulgarian field errors
-- [ ] one authorized real contact request succeeds and is present in MongoDB
-- [ ] the same request produces one email at the configured client address
-- [ ] the MongoDB notification status is `sent`
-- [ ] timeout, server error and rate-limit messages are Bulgarian
 - [ ] `/health`, `/ready` and `/api/projects` return valid responses
 - [ ] CORS rejects an unapproved origin
 - [ ] `robots.txt` and `sitemap.xml` use the final domain
@@ -72,18 +61,21 @@ Core API on Render backed by MongoDB Atlas.
 
 ## 5. Privacy and legal content
 
-The contact form processes a visitor's name, telephone number, email address,
-requested service and message. The client must approve the final legal text.
+The public site currently offers direct telephone and email links only. It does
+not expose a contact form or a write API for inquiries. A form must not be
+reintroduced until the controller and the processing rules are documented.
 
 - [ ] privacy notice identifies the data controller
 - [ ] purposes and legal basis are stated
 - [ ] retention period or retention criteria are stated
 - [ ] processors and international transfers are described where applicable
 - [ ] data-subject rights and a contact channel are stated
-- [ ] the form links to the privacy notice before submission
 - [ ] Google Maps is consent-gated or its loading is covered by the approved policy
 - [ ] analytics or advertising scripts are not added without an appropriate consent flow
 - [ ] company identity and public contact information are approved by the client
+- [ ] the provider information required for the public website is approved
+- [ ] the legal/tax status for regularly offered paid services is confirmed by a qualified professional
+- [ ] qualifications and permitted scope for electrical and regulated construction work are documented
 
 Use `docs/LEGAL-CONTENT-INPUTS.md` to collect the information required from the
 client. Legal text should be reviewed by a qualified Bulgarian professional.

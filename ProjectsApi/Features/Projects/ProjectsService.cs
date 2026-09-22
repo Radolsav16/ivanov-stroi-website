@@ -8,8 +8,9 @@ public sealed class ProjectsService(IProjectsRepository repository)
     {
         var query = requestedQuery with
         {
-            Page = Math.Max(requestedQuery.Page, 1),
-            PageSize = Math.Clamp(requestedQuery.PageSize, 1, 100)
+            Page = Math.Clamp(requestedQuery.Page, 1, 10_000),
+            PageSize = Math.Clamp(requestedQuery.PageSize, 1, 100),
+            Location = NormalizeLocation(requestedQuery.Location)
         };
         var (items, total) = await repository.GetPageAsync(query, cancellationToken);
         return new ProjectsPageResponse(
@@ -18,6 +19,13 @@ public sealed class ProjectsService(IProjectsRepository repository)
             query.PageSize,
             total,
             (int)Math.Ceiling(total / (double)query.PageSize));
+    }
+
+    private static string? NormalizeLocation(string? location)
+    {
+        if (string.IsNullOrWhiteSpace(location)) return null;
+        var normalized = location.Trim();
+        return normalized[..Math.Min(normalized.Length, 80)];
     }
 
     private static ProjectResponse ToResponse(ProjectDocument project) => new(

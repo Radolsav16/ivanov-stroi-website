@@ -26,16 +26,7 @@ type ProjectsResponse = {
 
 export function getProjectsApiUrl() {
   const configured = import.meta.env.VITE_PROJECTS_API_URL?.trim();
-  if (configured) return configured.replace(/\/$/, "");
-
-  const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim();
-  if (!contactEndpoint) return "";
-
-  try {
-    return `${new URL(contactEndpoint).origin}/api/projects`;
-  } catch {
-    return "";
-  }
+  return configured ? configured.replace(/\/$/, "") : "";
 }
 
 export async function fetchProjects(signal?: AbortSignal) {

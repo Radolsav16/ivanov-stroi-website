@@ -1,9 +1,4 @@
-import {
-  PhoneIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 import { navigation, services } from "./data";
 import { Link } from "react-router-dom";
@@ -84,7 +79,7 @@ export default function Footer() {
               "
             >
               Свържете се с нас
-              <ArrowRightIcon
+              <ArrowRight
                 className="
                   size-4
                   transition-transform
@@ -148,7 +143,7 @@ export default function Footer() {
 
             <div className="mt-6 space-y-5">
               <a href={contactDetails.phoneHref} className="group flex gap-3">
-                <PhoneIcon
+                <Phone
                   className="
                     mt-0.5
                     size-5
@@ -179,7 +174,7 @@ export default function Footer() {
                 href={contactDetails.emailHref}
                 className="group flex gap-3"
               >
-                <EnvelopeIcon
+                <Mail
                   className="
                     mt-0.5
                     size-5
@@ -189,7 +184,7 @@ export default function Footer() {
                 />
 
                 <div>
-                  <p className="text-xs text-gray-600">Email</p>
+                  <p className="text-xs text-gray-600">Имейл</p>
 
                   <p
                     className="
@@ -207,7 +202,7 @@ export default function Footer() {
               </a>
 
               <div className="flex gap-3">
-                <MapPinIcon
+                <MapPin
                   className="
                     mt-0.5
                     size-5
@@ -246,7 +241,7 @@ export default function Footer() {
           </p>
 
           <p className="text-xs text-gray-600">
-            Качество • Коректност • Доверие
+            Ясен процес • Лична комуникация • Практични решения
           </p>
         </div>
       </Container>

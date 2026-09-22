@@ -51,8 +51,7 @@ function ContactIntroduction() {
     </div>
   );
 }
-
-export default function ContactForm() {
+export default function ContactSection() {
   return (
     <section id="contact" className="relative overflow-hidden bg-gray-950 py-20 sm:py-24 lg:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute right-0 top-1/2 -z-10 size-[500px] -translate-y-1/2 translate-x-1/3 rounded-full bg-amber-500/10 blur-3xl" />

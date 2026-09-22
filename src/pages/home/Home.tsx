@@ -10,7 +10,7 @@ import DeferredSection from "../../shared/ui/DeferredSection";
 import Layout from "../../Layout";
 
 const Slider = lazy(() => import("../../components/slider/Slider"));
-const ContactForm = lazy(() => import("../../features/contact/ContactForm"));
+const ContactSection = lazy(() => import("../../features/contact/ContactSection"));
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
         <HowWeWork />
       <DeferredSection placeholderClassName="min-h-[800px] bg-gray-950 sm:min-h-[900px]">
           <Suspense fallback={null}>
-            <ContactForm />
+            <ContactSection />
           </Suspense>
         </DeferredSection>
       </main>

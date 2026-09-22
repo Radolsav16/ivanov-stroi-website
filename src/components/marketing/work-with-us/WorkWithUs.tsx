@@ -94,7 +94,7 @@ export default function WorkWithUs() {
 
           <ImageFrame
             url={`${CLOUDINARY_BASE_URL}/v1787399641/bathroom-2.jpg`}
-            alt="Завършен проект на IVANOV STROI (баня) 2"
+            alt="Интериорно решение за баня"
             sizes="(min-width: 1024px) 50vw, 100vw"
             glowClassName="absolute -inset-5 rounded-[2rem] bg-amber-500/10 blur-2xl"
             frameClassName="shadow-black/50"

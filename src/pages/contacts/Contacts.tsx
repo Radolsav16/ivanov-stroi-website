@@ -1,9 +1,4 @@
-import {
-  ArrowUpRightIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 import { OptimizedImage } from "../../shared/ui/OptimizedImage";
 import Seo from "../../components/seo/Seo";
@@ -21,14 +16,14 @@ const contactCards = [
     title: contactDetails.phone,
     description: "Обадете се за оглед и уточняване на детайлите.",
     href: contactDetails.phoneHref,
-    Icon: PhoneIcon,
+    Icon: Phone,
   },
   {
     label: "Пишете ни",
     title: contactDetails.email,
     description: "Изпратете кратко описание на проекта по имейл.",
     href: contactDetails.emailHref,
-    Icon: EnvelopeIcon,
+    Icon: Mail,
   },
 ];
 
@@ -77,7 +72,7 @@ function ContactInfoCard({
         <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/20 sm:size-12">
           <Icon aria-hidden="true" className="size-5 sm:size-6" />
         </span>
-        <ArrowUpRightIcon aria-hidden="true" className="size-5 shrink-0 text-gray-600 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-amber-500" />
+        <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 text-gray-600 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-amber-500" />
       </div>
       <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 sm:mt-6 sm:text-xs">{label}</p>
       <p className="mt-2 break-words text-2xl font-black text-white sm:text-3xl">{title}</p>
@@ -94,18 +89,18 @@ function LocationCard() {
       <div className="p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/20 sm:size-12">
-            <MapPinIcon aria-hidden="true" className="size-5 sm:size-6" />
+            <MapPin aria-hidden="true" className="size-5 sm:size-6" />
           </span>
-          <ArrowUpRightIcon aria-hidden="true" className="size-5 shrink-0 text-gray-600" />
+          <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 text-gray-600" />
         </div>
-        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 sm:mt-6 sm:text-xs">Нашата локация</p>
-        <h3 className="mt-2 text-xl font-black text-white sm:text-2xl">София, България</h3>
-        <p className="mt-2 text-sm leading-6 text-gray-500">Работим в {contactDetails.serviceArea}.</p>
+        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 sm:mt-6 sm:text-xs">Район на работа</p>
+        <h3 className="mt-2 text-xl font-black text-white sm:text-2xl">{contactDetails.serviceArea}</h3>
+        <p className="mt-2 text-sm leading-6 text-gray-500">Картата показва общия обслужван район, а не адрес на офис.</p>
       </div>
       <div className="relative aspect-[16/9] min-h-[220px] overflow-hidden border-t border-white/10 sm:min-h-[250px]">
         {isMapLoaded ? (
           <iframe
-            title="IVANOV STROI - София"
+            title="Обслужван район: София"
             src={googleMapsEmbedUrl}
             className="absolute inset-0 h-full w-full border-0 grayscale-[0.7] opacity-75 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
             loading="lazy"
@@ -114,7 +109,7 @@ function LocationCard() {
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 px-6 text-center">
             <span className="flex size-12 items-center justify-center rounded-full bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/20">
-              <MapPinIcon aria-hidden="true" className="size-6" />
+              <MapPin aria-hidden="true" className="size-6" />
             </span>
             <p className="mt-4 max-w-sm text-sm leading-6 text-gray-400">
               Картата се предоставя от Google и се зарежда само след ваше действие.
@@ -131,7 +126,7 @@ function LocationCard() {
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Sofia,Bulgaria" target="_blank" rel="noopener noreferrer" className="flex min-h-[52px] items-center justify-between gap-4 border-t border-white/10 px-6 py-4 text-sm font-bold text-amber-500 transition-colors hover:bg-white/[0.03] sm:px-8">
         <span>Виж в Google Maps</span>
-        <ArrowUpRightIcon aria-hidden="true" className="size-5 shrink-0" />
+        <ArrowUpRight aria-hidden="true" className="size-5 shrink-0" />
       </a>
     </div>
   );

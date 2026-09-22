@@ -40,7 +40,7 @@ export default function Gallery() {
                 <h1 className="animate-fade-up max-w-4xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
                   Галерия
                   <br />
-                  <span className="text-amber-500">Създадени с внимание</span>
+                  <span className="text-amber-500">Примери и решения</span>
                 </h1>
 
                 <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">

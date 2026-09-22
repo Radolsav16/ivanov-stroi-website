@@ -25,7 +25,7 @@ export default function StrongSides() {
         <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
           <ImageFrame
             url={`${CLOUDINARY_BASE_URL}/v1787401298/bathroom-3.jpg`}
-            alt="Снимка на завършен проект на IVANOV STROI (баня)"
+            alt="Интериор на баня"
             sizes="(min-width: 1024px) 50vw, 100vw"
             glowClassName="absolute -inset-4 rounded-[2rem] bg-amber-500/10 blur-2xl"
             imageClassName="aspect-[4/5] w-full object-cover object-center transition-transform duration-1000 group-hover:scale-105"
@@ -36,7 +36,7 @@ export default function StrongSides() {
             <SectionHeading
               eyebrow="Защо да изберете нас"
               lines="before"
-              title={<>Качество, което <span className="text-amber-500">се вижда</span></>}
+              title={<>Подход, който <span className="text-amber-500">се вижда</span></>}
               description="Планираме внимателно, работим организирано и предаваме пространство, което служи добре всеки ден."
               descriptionClassName="max-w-xl"
             />

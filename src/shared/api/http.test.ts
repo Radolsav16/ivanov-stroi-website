@@ -31,7 +31,7 @@ describe("requestJson", () => {
       }),
     ));
 
-    await expect(requestJson("/api/contact")).rejects.toMatchObject<HttpError>({
+    await expect(requestJson("/api/projects")).rejects.toMatchObject<HttpError>({
       name: "HttpError",
       message: "Заявката към сървъра беше неуспешна.",
       status: 429,
@@ -52,7 +52,7 @@ describe("requestJson", () => {
   it("normalizes browser network errors in Bulgarian", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
 
-    await expect(requestJson("/api/contact")).rejects.toMatchObject<HttpNetworkError>({
+    await expect(requestJson("/api/projects")).rejects.toMatchObject<HttpNetworkError>({
       name: "HttpNetworkError",
       message: "Не успяхме да се свържем със сървъра. Проверете интернет връзката и опитайте отново.",
     });

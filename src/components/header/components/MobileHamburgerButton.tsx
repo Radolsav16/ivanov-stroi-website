@@ -1,4 +1,4 @@
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Menu } from "lucide-react";
 
 export function MobileHamburgerButton({onClick}:{onClick:() => void}) {
     return(
@@ -20,7 +20,7 @@ export function MobileHamburgerButton({onClick}:{onClick:() => void}) {
                   hover:text-white
                 "
                   >
-                    <Bars3Icon aria-hidden="true" className="size-6" />
+                    <Menu aria-hidden="true" className="size-6" />
                   </button>
                 </div>
     )

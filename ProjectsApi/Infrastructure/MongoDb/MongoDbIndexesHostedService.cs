@@ -1,5 +1,4 @@
 using MongoDB.Driver;
-using ProjectsApi.Features.Contacts;
 using ProjectsApi.Features.Projects;
 
 namespace ProjectsApi.Infrastructure.MongoDb;
@@ -20,11 +19,6 @@ public sealed class MongoDbIndexesHostedService(
                         new CreateIndexOptions { Unique = true, Name = "projects_slug_unique" }),
                     cancellationToken: stoppingToken);
 
-                await context.Contacts.Indexes.CreateOneAsync(
-                    new CreateIndexModel<ContactDocument>(
-                        Builders<ContactDocument>.IndexKeys.Descending(contact => contact.CreatedAt),
-                        new CreateIndexOptions { Name = "contacts_created_at" }),
-                    cancellationToken: stoppingToken);
                 logger.LogInformation("MongoDB indexes are ready");
                 return;
             }

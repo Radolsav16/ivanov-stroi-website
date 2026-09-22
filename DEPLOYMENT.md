@@ -3,10 +3,10 @@
 This project has two independently deployed parts:
 
 1. **Frontend:** Vite/React single-page application, built to `dist/`.
-2. **Contact and projects API:** ASP.NET Core and MongoDB Atlas service under `ProjectsApi/`.
+2. **Projects API:** ASP.NET Core and MongoDB Atlas service under `ProjectsApi/`.
 
 The repository includes `vercel.json`, so **Vercel** is the recommended frontend
-deployment. The contact and projects API should run as a separate **Render Web
+deployment. The read-only projects API should run as a separate **Render Web
 Service**. This keeps the existing SPA and the long-running ASP.NET Core process
 on hosting models that match their actual runtime needs.
 
@@ -16,7 +16,7 @@ on hosting models that match their actual runtime needs.
 - npm and the committed `package-lock.json`
 - Git repository access
 - A Vercel account/project for the frontend, if using the included configuration
-- A Render Web Service and MongoDB Atlas for the contact API
+- A Render Web Service and MongoDB Atlas for optional API-managed projects
 
 ## Local production test
 
@@ -46,8 +46,7 @@ contain database credentials, private API keys, or other secrets.
 | Variable | Required | Purpose | Visibility |
 | --- | --- | --- | --- |
 | `VITE_SITE_URL` | Yes | Canonical HTTPS frontend URL; enables canonical tags and sitemap generation. | Public |
-| `VITE_CONTACT_FORM_ENDPOINT` | Yes | Full HTTPS endpoint for `POST /api/contact`. | Public |
-| `VITE_PROJECTS_API_URL` | Optional | Full projects API base URL; if empty, it is derived from the contact endpoint origin. | Public |
+| `VITE_PROJECTS_API_URL` | Optional | Full `GET /api/projects` endpoint; leave empty to use the static gallery. | Public |
 | `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Optional | Search Console ownership token. | Public |
 
 Changing a `VITE_` variable requires a new frontend build and deployment.
@@ -64,10 +63,6 @@ to the frontend project settings or Git.
 | `ASPNETCORE_ENVIRONMENT` | Yes | Set to `Production`. | Server-only |
 | `PORT` | Host-provided | Render injects the API listening port. | Server-only |
 | `ALLOWED_ORIGINS` | Yes | Exact comma-separated HTTPS frontend origins allowed by CORS. | Server-only |
-| `CONTACT_EMAIL_ENABLED` | Yes for notifications | Set to `true` only after the sender domain is verified. | Server-only |
-| `RESEND_API_KEY` | Yes for notifications | Private Resend API key. | Secret |
-| `CONTACT_EMAIL_FROM` | Yes for notifications | Sender on the verified domain. | Server-only |
-| `CONTACT_EMAIL_TO` | Yes for notifications | Recipient of new inquiries. | Server-only |
 
 ## Frontend deployment (Vercel)
 
@@ -85,7 +80,7 @@ headers. If Vercel is used:
 The `/services/:serviceName` routes, gallery, about, and contact pages rely on the
 included `/* → /index.html` SPA rewrite. Test direct loads and refreshes after deployment.
 
-## Contact and projects API deployment (Render Web Service)
+## Projects API deployment (Render Web Service)
 
 The retired Node service has been removed after the C# deployment passed staging
 and production verification. Deploy only the ASP.NET Core API as a separate Render
@@ -100,31 +95,11 @@ Web Service from this repository.
    and `ALLOWED_ORIGINS` in Render's environment.
 4. **MANUAL STEP:** In MongoDB Atlas, permit only the deployed API environment as
    required and confirm the API's connection succeeds.
-5. Set `VITE_CONTACT_FORM_ENDPOINT` to the final HTTPS API URL in the frontend,
-   then rebuild and redeploy the frontend.
-6. Verify `GET /health`, `GET /ready`, `GET /api/projects`, a valid contact request,
-   validation errors, and rate limiting. The projects API is intentionally read-only.
-
-## Contact email notifications
-
-Contact requests are stored before an email is attempted, so a temporary email
-provider problem cannot lose the inquiry or encourage duplicate submissions.
-MongoDB records `notificationStatus`, `notificationAttempts`,
-`notificationLastError` and `notifiedAt` for operational checks.
-
-1. Create a Resend account owned by the client or explicitly delegated to the operator.
-2. Add a sending subdomain such as `notifications.example.com`.
-3. Add the exact SPF and DKIM records shown by Resend to the domain DNS.
-4. Wait until the sending domain is verified.
-5. Create a restricted sending API key and store it only in Render.
-6. Configure `CONTACT_EMAIL_FROM`, for example
-   `IVANOV STROI <zapitvane@notifications.example.com>`.
-7. Set `CONTACT_EMAIL_TO` to the public client address from `src/data/contact.ts`.
-8. Set `CONTACT_EMAIL_ENABLED=true`, redeploy and submit one authorized test request.
-
-The API uses a unique idempotency key for each inquiry. Provider failures are
-logged and recorded in MongoDB while the frontend still confirms that the inquiry
-itself was safely accepted.
+5. Set `VITE_PROJECTS_API_URL` to the final HTTPS `/api/projects` URL in the
+   frontend, then rebuild and redeploy the frontend. Leave it empty if the API
+   collection is intentionally unused.
+6. Verify `GET /health`, `GET /ready` and `GET /api/projects`. The API is
+   intentionally read-only and does not accept contact inquiries.
 
 The obsolete SQL Server project, EF migrations and demo seed code have been removed.
 There were no SQL Server records to migrate. New project records are stored in the
@@ -185,7 +160,6 @@ HTTPS domain and redirects have been verified in production.
 
 ### Functionality
 
-- [ ] Contact form success, validation, timeout, and rate-limit states
 - [ ] Phone, email, and external Google Maps links
 - [ ] Cloudinary images and Google Maps embed
 - [ ] No browser-console errors or failed required network requests
@@ -211,10 +185,10 @@ HTTPS domain and redirects have been verified in production.
 With Vercel, use the dashboard to promote the previous verified deployment. Keep
 preview deployments until the production smoke test passes.
 
-### Contact API
+### Projects API
 
 Use Render's previous successful deployment rollback or redeploy the last known
 good Git revision. Keep the previous release available until health/readiness and
-contact-form tests pass.
+projects API tests pass.
 
 Do not roll back by deleting databases, DNS records, or production resources.

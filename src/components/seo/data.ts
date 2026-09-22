@@ -15,11 +15,6 @@ const businessSchema = {
   telephone: contactDetails.phoneHref.replace("tel:", ""),
   email: contactDetails.email,
   areaServed: ["София", contactDetails.serviceArea],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "София",
-    addressCountry: "BG",
-  },
 };
 
 export const organizationSchema = {
