@@ -12,6 +12,7 @@ export type ServiceData = {
   cardDescription: string;
   cardImage: string;
   heroImageFit?: "cover" | "contain";
+  ctaImageFit?: "cover" | "contain";
 };
 
 export const services: Record<ServiceSlug, ServiceData> = {
@@ -110,6 +111,7 @@ export const services: Record<ServiceSlug, ServiceData> = {
     heroImage: "/v1787867342/service-img-13.jpg",
     detailImage: "/v1790352609/painting-services.jpg",
     ctaImage: "/v1790352574/painting-services-2.jpg",
+    ctaImageFit: "contain",
     cardDescription: "Равномерен цвят и чист завършек за стени, тавани и помещения.",
     cardImage: "/v1787591078/service-img-4.jpg",
   },
@@ -164,8 +166,8 @@ export const services: Record<ServiceSlug, ServiceData> = {
       "Плочките определят ритъма на помещението. Обръщаме внимание на нивата, симетрията, фугите и преходите още преди полагането, за да получите чиста визия и удобна настилка за всеки ден.",
     includes: ["Подготовка и изравняване", "План за разпределение", "Стенни и подови плочки", "Фуги, ъгли и преходи"],
     heroImage: "/v1787591081/service-img-1.jpg",
-    detailImage: "/v1787401298/bathroom-3.jpg",
-    ctaImage: "/v1788383386/working-img-46.jpg",
+    detailImage: "/images/lepene-na-plochki-detail.png",
+    ctaImage: "/images/lepene-na-plochki-cta.png",
     cardDescription: "Точна подготовка, правилно разпределение и чисти фуги.",
     cardImage: "/v1787591081/service-img-1.jpg",
   },
@@ -177,7 +179,7 @@ export const services: Record<ServiceSlug, ServiceData> = {
     overview:
       "Шпакловката е ключовата подготовка преди финалното покритие. Оценяваме състоянието на стените, коригираме неравностите и работим поетапно, за да получите равна повърхност, която изглежда добре при всяка светлина.",
     includes: ["Почистване и грундиране", "Запълване на пукнатини", "Изравняване на стени и тавани", "Подготовка за боядисване"],
-    heroImage: "/v1787591077/service-img-5.jpg",
+    heroImage: "/images/shpaklovane-cta.png",
     detailImage: "/v1787591078/service-img-4.jpg",
     ctaImage: "/images/shpaklovane-cta.png",
     cardDescription: "Гладка основа за боя, тапети и декоративни покрития.",

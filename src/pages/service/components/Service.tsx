@@ -131,12 +131,21 @@ export default function Service({ service }: { service: ServiceData }) {
 
       <section className="relative isolate overflow-hidden py-20 sm:py-28 lg:py-32">
         <div aria-hidden="true" className="absolute inset-0 -z-20">
+          {service.ctaImageFit === "contain" && (
+            <OptimizedImage
+              url={resolveServiceImage(service.ctaImage)}
+              alt=""
+              width={1920}
+              sizes="100vw"
+              className="absolute inset-0 size-full scale-105 object-cover object-center opacity-70 blur-xl"
+            />
+          )}
           <OptimizedImage
             url={resolveServiceImage(service.ctaImage)}
             alt=""
             width={1920}
             sizes="100vw"
-            className="size-full object-cover object-center"
+            className={`relative size-full object-center ${service.ctaImageFit === "contain" ? "object-contain" : "object-cover"}`}
           />
         </div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/45" />

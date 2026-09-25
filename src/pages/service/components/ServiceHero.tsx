@@ -11,6 +11,9 @@ type ServiceHeroProps = {
   service: ServiceData;
 };
 
+const resolveServiceImage = (image: string) =>
+  image.startsWith("/images/") ? image : `${CLOUDINARY_BASE_URL}${image}`;
+
 function Breadcrumb({ title }: { title: string }) {
   return (
     <nav aria-label="Навигационна пътека" className="mb-6 flex min-w-0 items-center gap-2 overflow-hidden text-xs font-bold sm:mb-8 sm:text-sm">
@@ -31,7 +34,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
       <div aria-hidden="true" className="absolute inset-0 -z-20">
         {service.heroImageFit === "contain" && (
           <OptimizedImage
-            url={`${CLOUDINARY_BASE_URL}${service.heroImage}`}
+            url={resolveServiceImage(service.heroImage)}
             alt=""
             priority
             sizes="100vw"
@@ -39,7 +42,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
           />
         )}
         <OptimizedImage
-          url={`${CLOUDINARY_BASE_URL}${service.heroImage}`}
+          url={resolveServiceImage(service.heroImage)}
           alt=""
           priority
           sizes="100vw"
