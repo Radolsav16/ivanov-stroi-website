@@ -29,12 +29,21 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
   return (
     <section className="relative isolate min-h-[620px] overflow-hidden sm:min-h-[680px] lg:min-h-[760px]">
       <div aria-hidden="true" className="absolute inset-0 -z-20">
+        {service.heroImageFit === "contain" && (
+          <OptimizedImage
+            url={`${CLOUDINARY_BASE_URL}${service.heroImage}`}
+            alt=""
+            priority
+            sizes="100vw"
+            className="absolute inset-0 size-full scale-105 object-cover object-center opacity-70 blur-xl"
+          />
+        )}
         <OptimizedImage
           url={`${CLOUDINARY_BASE_URL}${service.heroImage}`}
           alt=""
           priority
           sizes="100vw"
-          className="size-full object-cover object-center"
+          className={`relative size-full object-center ${service.heroImageFit === "contain" ? "object-contain" : "object-cover"}`}
         />
       </div>
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/25" />

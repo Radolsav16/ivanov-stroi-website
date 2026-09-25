@@ -35,6 +35,9 @@ const processSteps = [
   },
 ];
 
+const resolveServiceImage = (image: string) =>
+  image.startsWith("/images/") ? image : `${CLOUDINARY_BASE_URL}${image}`;
+
 export default function Service({ service }: { service: ServiceData }) {
   return (
     <>
@@ -43,7 +46,7 @@ export default function Service({ service }: { service: ServiceData }) {
       <section className="relative isolate overflow-hidden bg-gray-950 py-20 sm:py-28 lg:py-32">
         <div aria-hidden="true" className="absolute inset-0 -z-20">
           <OptimizedImage
-            url={`${CLOUDINARY_BASE_URL}${service.detailImage}`}
+            url={resolveServiceImage(service.detailImage)}
             alt=""
             width={1920}
             sizes="100vw"
@@ -78,28 +81,50 @@ export default function Service({ service }: { service: ServiceData }) {
         </Container>
       </section>
 
-      <section className="relative isolate overflow-hidden border-y border-white/10 bg-gray-950 py-20 sm:py-28">
-        <div aria-hidden="true" className="absolute left-1/2 top-0 -z-10 h-80 w-[70rem] -translate-x-1/2 rounded-full bg-amber-500/[0.06] blur-3xl" />
-        <Container>
-          <div className="mb-10 flex items-center gap-4 sm:mb-12">
-            <span className="h-px w-10 bg-amber-500" />
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Как работим</p>
-          </div>
-          <div className="grid gap-5 lg:grid-cols-3">
-            {processSteps.map((step) => {
-              const Icon = step.icon;
+      <section className="relative isolate overflow-hidden border-y border-white/10 bg-[#070b14] py-20 sm:py-28 lg:py-32">
+        <div aria-hidden="true" className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.12),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 opacity-[0.04] [background-image:linear-gradient(rgba(255,255,255,.7)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.7)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-              return (
-                <article key={step.number} className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gray-950/80 p-7 shadow-2xl shadow-black/20 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-amber-500/30 sm:p-8">
-                  <span className="absolute right-6 top-4 text-6xl font-black tracking-tight text-white/[0.06] transition-colors group-hover:text-amber-500/15">{step.number}</span>
-                  <div className="flex size-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 ring-1 ring-amber-500/20 transition group-hover:bg-amber-500 group-hover:text-gray-950">
-                    <Icon className="size-5" />
-                  </div>
-                  <h3 className="mt-7 text-xl font-bold text-white">{step.title}</h3>
-                  <p className="mt-3 max-w-sm text-sm leading-7 text-gray-300">{step.description}</p>
-                </article>
-              );
-            })}
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
+            <div>
+              <div className="flex items-center gap-4">
+                <span className="h-px w-10 bg-amber-500" />
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Как работим</p>
+              </div>
+              <h2 className="mt-6 max-w-xl text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl lg:text-5xl">
+                Ясен процес за <span className="text-amber-500">{service.title.toLowerCase()}</span>
+              </h2>
+            </div>
+            <p className="max-w-2xl border-l border-white/15 pl-6 text-base leading-8 text-gray-300 sm:text-lg">
+              От първия разговор до завършването на обекта знаете какво предстои. Работим подредено, с ясни решения и контрол във всеки етап.
+            </p>
+          </div>
+
+          <div className="relative mt-14 lg:mt-20">
+            <div aria-hidden="true" className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-amber-500 via-amber-500/40 to-white/10 lg:left-0 lg:top-7 lg:h-px lg:w-full lg:bg-gradient-to-r" />
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-0">
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+
+                return (
+                  <article
+                    key={step.number}
+                    className={`group relative ml-14 border border-white/10 bg-gray-950/65 p-7 shadow-2xl shadow-black/20 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-amber-500/35 sm:p-8 lg:ml-0 lg:mt-14 ${index === 0 ? "rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none" : ""} ${index === processSteps.length - 1 ? "rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none" : "border-t-0 lg:border-l-0 lg:border-t"}`}
+                  >
+                    <div className="absolute -left-[4.05rem] top-7 flex size-12 items-center justify-center rounded-full border-4 border-[#070b14] bg-amber-500 text-gray-950 shadow-[0_0_0_1px_rgba(245,158,11,.3),0_0_28px_rgba(245,158,11,.2)] lg:-top-[3.75rem] lg:left-8">
+                      <Icon className="size-5" strokeWidth={2.25} />
+                    </div>
+                    <div className="flex items-start justify-between gap-6">
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-500">Етап {step.number}</p>
+                      <span className="text-5xl font-black leading-none text-white/[0.05] transition-colors group-hover:text-amber-500/10 sm:text-6xl">{step.number}</span>
+                    </div>
+                    <h3 className="mt-5 text-xl font-bold text-white sm:text-2xl">{step.title}</h3>
+                    <p className="mt-4 max-w-sm text-sm leading-7 text-gray-300 sm:text-base">{step.description}</p>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </Container>
       </section>
@@ -107,7 +132,7 @@ export default function Service({ service }: { service: ServiceData }) {
       <section className="relative isolate overflow-hidden py-20 sm:py-28 lg:py-32">
         <div aria-hidden="true" className="absolute inset-0 -z-20">
           <OptimizedImage
-            url={`${CLOUDINARY_BASE_URL}${service.ctaImage}`}
+            url={resolveServiceImage(service.ctaImage)}
             alt=""
             width={1920}
             sizes="100vw"
