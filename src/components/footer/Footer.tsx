@@ -48,12 +48,12 @@ export default function Footer() {
                 hover:text-amber-500
               "
             >
-              <span className="text-2xl font-extrabold uppercase tracking-[0.15em] transition-transform duration-300 group-hover:scale-[1.03] sm:block">
+              <span className="text-2xl font-extrabold tracking-[0.04em] transition-transform duration-300 group-hover:scale-[1.03] sm:block">
                 <span className="text-amber-500 transition-colors duration-300 group-hover:text-amber-400">
-                  IVANOV
+                  Ivanov
                 </span>
                 <span className="text-white transition-colors duration-300 group-hover:text-amber-500">
-                  STROI
+                  Stroi
                 </span>
               </span>
             </Link>
@@ -237,7 +237,7 @@ export default function Footer() {
           "
         >
           <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} IVANOV STROI. Всички права запазени.
+            © {new Date().getFullYear()} IvanovStroi. Всички права запазени.
           </p>
 
           <p className="text-xs text-gray-600">

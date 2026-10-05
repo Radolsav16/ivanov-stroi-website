@@ -90,7 +90,7 @@ export default function HowWeWork() {
           </div>
           <ImageFrame
             url={`${CLOUDINARY_BASE_URL}/v1787399614/bathroom-1.jpg`}
-            alt="Проект на IVAN STROI баня"
+            alt="Проект на IvanovStroi — баня"
             sizes="(min-width: 1024px) 45vw, 100vw"
             glowClassName="absolute -inset-5 rounded-[2rem] bg-amber-500/10 blur-2xl"
             imageClassName="aspect-[4/5] w-full object-cover transition-transform duration-1000 group-hover:scale-105"

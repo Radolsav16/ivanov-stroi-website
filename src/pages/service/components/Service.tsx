@@ -2,16 +2,22 @@ import {
   ArrowRight,
   CheckCircle2,
   ClipboardList,
+  FileSearch,
+  HelpCircle,
+  Images,
   MessageCircle,
   Ruler,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { contactDetails } from "../../../data/contact";
+import type { ServiceSlug } from "../../../data/serviceSlugs";
 import { OptimizedImage } from "../../../shared/ui/OptimizedImage";
 import ActionLink from "../../../shared/ui/ActionLink";
 import Container from "../../../shared/ui/Container";
 import SectionHeading from "../../../shared/ui/SectionHeading";
 import { CLOUDINARY_BASE_URL } from "../../../utils/url";
-import type { ServiceData } from "../data";
+import { services, type ServiceData } from "../data";
+import type { ServiceGuide } from "../guides";
 import ServiceHero from "./ServiceHero";
 
 const processSteps = [
@@ -38,7 +44,13 @@ const processSteps = [
 const resolveServiceImage = (image: string) =>
   image.startsWith("/images/") ? image : `${CLOUDINARY_BASE_URL}${image}`;
 
-export default function Service({ service }: { service: ServiceData }) {
+type ServiceProps = {
+  service: ServiceData;
+  serviceSlug: ServiceSlug;
+  guide: ServiceGuide;
+};
+
+export default function Service({ service, serviceSlug, guide }: ServiceProps) {
   return (
     <>
       <ServiceHero service={service} />
@@ -125,6 +137,105 @@ export default function Service({ service }: { service: ServiceData }) {
                 );
               })}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="relative overflow-hidden bg-gray-950 py-20 sm:py-28 lg:py-32">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <div className="flex items-center gap-4">
+                <span className="h-px w-10 bg-amber-500" />
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Преди започване</p>
+              </div>
+              <h2 className="mt-6 text-3xl font-black tracking-tight text-white sm:text-4xl">
+                Важни решения за <span className="text-amber-500">добре планирана работа</span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-gray-300">
+                Точният обхват се определя според състоянието на обекта и избраните решения. При огледа обръщаме внимание на следните практически въпроси:
+              </p>
+              <ul className="mt-8 space-y-4">
+                {guide.decisions.map((item) => (
+                  <li key={item} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.025] p-5 text-sm leading-7 text-gray-200 sm:text-base">
+                    <CheckCircle2 className="mt-1 size-5 shrink-0 text-amber-500" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-[#070b14] p-7 sm:p-9">
+              <div className="flex size-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500">
+                <FileSearch className="size-6" />
+              </div>
+              <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">Какво е полезно да подготвите за огледа</h2>
+              <p className="mt-4 text-sm leading-7 text-gray-400 sm:text-base">
+                Не е необходимо да имате готов проект. Следната информация помага разговорът да бъде конкретен и да не се пропуснат важни зависимости.
+              </p>
+              <ol className="mt-8 space-y-5">
+                {guide.preparation.map((item, index) => (
+                  <li key={item} className="flex items-start gap-4">
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-amber-500/30 text-xs font-bold text-amber-500">
+                      {index + 1}
+                    </span>
+                    <span className="pt-1 text-sm leading-6 text-gray-200 sm:text-base">{item}</span>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-9 rounded-2xl border border-amber-500/20 bg-amber-500/[0.06] p-5">
+                <p className="font-semibold text-white">Защо няма универсална цена и срок?</p>
+                <p className="mt-2 text-sm leading-7 text-gray-300">
+                  Те зависят от реалното състояние, достъпа, материалите и взаимовръзката с останалите дейности. След оглед може да се обсъди конкретен обхват вместо подвеждаща обща стойност.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-y border-white/10 bg-[#070b14] py-20 sm:py-28">
+        <Container size="content">
+          <div className="mx-auto max-w-3xl text-center">
+            <HelpCircle className="mx-auto size-9 text-amber-500" />
+            <h2 className="mt-5 text-3xl font-black text-white sm:text-4xl">Често задавани въпроси</h2>
+            <p className="mt-4 text-base leading-8 text-gray-400">
+              Кратки отговори на въпроси, които е добре да се изяснят преди {service.title.toLowerCase()}.
+            </p>
+          </div>
+          <div className="mx-auto mt-10 max-w-3xl space-y-3">
+            {guide.faq.map((item) => (
+              <details key={item.question} className="group rounded-2xl bg-gray-950/60 p-5 transition-colors open:bg-white/[0.04] sm:p-6">
+                <summary className="cursor-pointer list-none pr-8 text-base font-bold text-white marker:hidden focus-visible:outline-none focus-visible:text-amber-400 sm:text-lg">
+                  {item.question}
+                </summary>
+                <p className="mt-4 pt-2 text-sm leading-7 text-gray-300 sm:text-base">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-gray-950 py-20 sm:py-24">
+        <Container>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Свързани страници</p>
+              <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Разгледайте целия процес</h2>
+              <p className="mt-4 text-base leading-8 text-gray-400">При един ремонт дейностите са свързани. Вижте услугите, които най-често се планират заедно.</p>
+            </div>
+            <Link to="/gallery" className="group inline-flex items-center gap-3 font-bold text-amber-500 hover:text-amber-400">
+              <Images className="size-5" /> Галерия с проекти <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {guide.related.filter((slug) => slug !== serviceSlug).map((slug) => (
+              <Link key={slug} to={`/services/${slug}`} className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-amber-500/35">
+                <p className="text-lg font-bold text-white group-hover:text-amber-400">{services[slug].title}</p>
+                <p className="mt-3 text-sm leading-6 text-gray-400">{services[slug].cardDescription}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-amber-500">Научете повече <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+            ))}
           </div>
         </Container>
       </section>

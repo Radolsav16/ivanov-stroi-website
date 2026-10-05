@@ -44,8 +44,9 @@ function createSeoFiles(siteUrl: string | undefined): Plugin {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const siteUrl = env.VITE_SITE_URL || "https://ivanovstroi.bg";
 
   return {
-    plugins: [react(), tailwindcss(), createSeoFiles(env.VITE_SITE_URL)],
+    plugins: [react(), tailwindcss(), createSeoFiles(siteUrl)],
   };
 });

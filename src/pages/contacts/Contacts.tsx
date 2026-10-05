@@ -32,9 +32,10 @@ function ContactsHero() {
     <section className="relative isolate min-h-[520px] overflow-hidden py-24 sm:min-h-[560px] sm:py-32 lg:min-h-[600px] lg:py-36">
       <div aria-hidden="true" className="absolute inset-0 -z-20">
         <OptimizedImage
-          url={`${CLOUDINARY_BASE_URL}/v1788383386/working-img-46.jpg`}
+          url="/images/contact-hero.jpg"
           alt=""
-          width={1920}
+          width={1672}
+          height={941}
           priority
           className="h-full w-full object-cover object-center"
         />
@@ -178,7 +179,7 @@ export default function Contacts() {
   return (
     <Layout>
       <main className="min-h-screen overflow-hidden bg-gray-950 text-white">
-        <Seo title="Контакти за ремонт и строителство в София" description="Свържете се с IVANOV STROI за оглед и оферта за строителни, ремонтни и довършителни услуги в София и околностите." path="/contact-us" />
+        <Seo title="Контакти за ремонт и строителство в София" description="Свържете се с IvanovStroi за оглед и оферта за строителни, ремонтни и довършителни услуги в София и околностите." path="/contact-us" />
         <ContactsHero />
         <ContactContent />
       </main>

@@ -8,8 +8,8 @@ import { organizationSchema } from "../../components/seo/data";
 import Services from "../../components/services/Services";
 import DeferredSection from "../../shared/ui/DeferredSection";
 import Layout from "../../Layout";
+import Slider from "../../components/slider/Slider";
 
-const Slider = lazy(() => import("../../components/slider/Slider"));
 const ContactSection = lazy(() => import("../../features/contact/ContactSection"));
 
 export default function Home() {
@@ -22,9 +22,7 @@ export default function Home() {
         <Services />
         <WorkWithUs />
       <DeferredSection placeholderClassName="min-h-[650px] bg-gray-950 sm:min-h-[900px] lg:min-h-[1050px]">
-          <Suspense fallback={null}>
-            <Slider />
-          </Suspense>
+          <Slider />
         </DeferredSection>
         <HowWeWork />
       <DeferredSection placeholderClassName="min-h-[800px] bg-gray-950 sm:min-h-[900px]">

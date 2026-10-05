@@ -1,4 +1,4 @@
-# IVANOV STROI
+# IvanovStroi
 
 Production website for a construction and renovation company serving Sofia and
 the surrounding area.
@@ -53,7 +53,7 @@ real credentials.
 
 Frontend build-time variables are public:
 
-- `VITE_SITE_URL` — canonical HTTPS website URL
+- `VITE_SITE_URL` — optional canonical HTTPS URL override (defaults to `https://ivanovstroi.bg`)
 - `VITE_PROJECTS_API_URL` — optional read-only projects endpoint
 - `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` — optional ownership token
 

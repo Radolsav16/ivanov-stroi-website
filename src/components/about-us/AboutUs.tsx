@@ -18,8 +18,8 @@ const AboutUs = () => {
     <Layout>
       <main className="overflow-hidden bg-gray-950 text-white">
         <Seo
-          title="За IVANOV STROI: строителство и ремонти в София"
-          description="Научете повече за подхода на IVANOV STROI към строителството, ремонтите и довършителните услуги в София и околностите."
+          title="За IvanovStroi: строителство и ремонти в София"
+          description="Научете повече за подхода на IvanovStroi към строителството, ремонтите и довършителните услуги в София и околностите."
           path="/about-us"
         />
         <section className="relative isolate min-h-[680px] overflow-hidden sm:min-h-[720px] lg:min-h-[780px]">
@@ -47,7 +47,7 @@ const AboutUs = () => {
               </h1>
 
               <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">
-                IVANOV STROI превръща идеите за дома в добре организирани ремонти
+                IvanovStroi превръща идеите за дома в добре организирани ремонти
                 и строителни решения — от малката промяна до цялостния проект
               </p>
 

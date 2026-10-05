@@ -94,9 +94,9 @@ export default function Header() {
           <div ref={mobilePanelRef} className="absolute inset-y-0 right-0 w-full overflow-y-auto border-l border-white/10 bg-gray-950 p-6 pb-8 shadow-2xl sm:max-w-sm">
             <div className="flex items-center justify-between">
               <Link to="/" className="p-1.5" onClick={closeMobileMenu}>
-                <span className="text-2xl font-extrabold uppercase tracking-[0.15em]">
-                  <span className="text-amber-500">IVANOV</span>
-                  <span className="text-white">STROI</span>
+                <span className="text-2xl font-extrabold tracking-[0.04em]">
+                  <span className="text-amber-500">Ivanov</span>
+                  <span className="text-white">Stroi</span>
                 </span>
               </Link>
               <button

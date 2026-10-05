@@ -45,7 +45,7 @@ contain database credentials, private API keys, or other secrets.
 
 | Variable | Required | Purpose | Visibility |
 | --- | --- | --- | --- |
-| `VITE_SITE_URL` | Yes | Canonical HTTPS frontend URL; enables canonical tags and sitemap generation. | Public |
+| `VITE_SITE_URL` | No | Canonical HTTPS frontend URL override. Defaults to `https://ivanovstroi.bg`; set it when the canonical domain changes. | Public |
 | `VITE_PROJECTS_API_URL` | Optional | Full `GET /api/projects` endpoint; leave empty to use the static gallery. | Public |
 | `VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Optional | Search Console ownership token. | Public |
 
@@ -66,8 +66,8 @@ to the frontend project settings or Git.
 
 ## Frontend deployment (Vercel)
 
-The existing `vercel.json` already provides SPA routing and conservative security
-headers. If Vercel is used:
+The existing `vercel.json` provides conservative security headers. The build
+pre-renders every public route as static HTML and emits a real `404.html`. If Vercel is used:
 
 1. **MANUAL STEP:** Push the reviewed repository state to the intended production branch.
 2. **MANUAL STEP:** Import that repository into Vercel.
@@ -77,8 +77,8 @@ headers. If Vercel is used:
 5. Deploy a preview first, then inspect routes, assets, and headers.
 6. Promote the verified deployment to Production.
 
-The `/services/:serviceName` routes, gallery, about, and contact pages rely on the
-included `/* → /index.html` SPA rewrite. Test direct loads and refreshes after deployment.
+The service, gallery, about, and contact routes are emitted as static directory
+indexes. Test direct loads, refreshes, and an unknown URL after deployment.
 
 ## Projects API deployment (Render Web Service)
 

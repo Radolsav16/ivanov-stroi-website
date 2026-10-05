@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-const SITE_NAME = "IVANOV STROI";
-const DEFAULT_TITLE = "Строителни и ремонтни услуги в София | IVANOV STROI";
+const SITE_NAME = "IvanovStroi";
+const DEFAULT_TITLE = "Строителни и ремонтни услуги в София | IvanovStroi";
 const DEFAULT_DESCRIPTION =
-  "IVANOV STROI предлага строителни, ремонтни и довършителни услуги в София и околностите.";
+  "IvanovStroi предлага строителни, ремонтни и довършителни услуги в София и околностите.";
 const DEFAULT_IMAGE =
   "https://res.cloudinary.com/rwyghcuy/image/upload/f_auto,q_auto,w_1200/v1690000000/hero-img.jpg";
 
@@ -38,7 +38,7 @@ export default function Seo({
 }: SeoProps) {
   useEffect(() => {
     const fullTitle = title === DEFAULT_TITLE ? title : `${title} | ${SITE_NAME}`;
-    const siteUrl = import.meta.env.VITE_SITE_URL?.replace(/\/$/, "");
+    const siteUrl = (import.meta.env.VITE_SITE_URL || "https://ivanovstroi.bg").replace(/\/$/, "");
     const verificationToken = import.meta.env.VITE_GOOGLE_SEARCH_CONSOLE_VERIFICATION;
 
     document.title = fullTitle;

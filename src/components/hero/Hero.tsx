@@ -79,9 +79,9 @@ export default function Hero() {
             animate-fade-up
           "
             >
-              Домът ви
+              Строителни и ремонтни
               <br />
-              <span className="text-amber-500">в сигурни ръце</span>
+              <span className="text-amber-500">услуги в София</span>
             </h1>
             <p
               className="
@@ -94,7 +94,7 @@ export default function Hero() {
             animate-fade-up-delay
           "
             >
-              Строителство и ремонти с ясен план, точна организация и лично отношение
+              Домът ви е в сигурни ръце — с ясен план, точна организация и лично отношение
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">

@@ -4,17 +4,21 @@ import Service from "./components/Service";
 import { services } from "./data";
 import Seo from "../../components/seo/Seo";
 import { createServiceSchema } from "../../components/seo/data";
+import { serviceGuides } from "./guides";
+import type { ServiceSlug } from "../../data/serviceSlugs";
 
 export default function Services() {
   const { serviceName } = useParams<{ serviceName: string }>();
 
-  const service = serviceName && serviceName in services
-    ? services[serviceName as keyof typeof services]
+  const serviceSlug = serviceName && serviceName in services
+    ? serviceName as ServiceSlug
     : undefined;
-
-  if (!service) {
+  if (!serviceSlug) {
     return <Navigate to="/404" replace />;
   }
+
+  const service = services[serviceSlug];
+  const guide = serviceGuides[serviceSlug];
 
   return (
     <Layout>
@@ -27,9 +31,10 @@ export default function Services() {
             title: service.title,
             description: service.overview,
             path: `/services/${serviceName}`,
+            faq: guide.faq,
           })}
         />
-        <Service service={service} />
+        <Service service={service} serviceSlug={serviceSlug} guide={guide} />
       </main>
     </Layout>
   );
