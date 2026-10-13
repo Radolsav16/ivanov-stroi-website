@@ -81,7 +81,7 @@ export default function Hero() {
             >
               Строителни и ремонтни
               <br />
-              <span className="text-amber-500">услуги в София</span>
+              <span>услуги в София</span>
             </h1>
             <p
               className="

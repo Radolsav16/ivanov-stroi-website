@@ -49,7 +49,7 @@ function ContactsHero() {
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-500 sm:text-xs sm:tracking-[0.25em]">Свържете се с нас</span>
           </div>
           <h1 className="animate-fade-up text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Да обсъдим <span className="text-amber-500">вашия проект</span>
+            Да обсъдим <span>вашия проект</span>
           </h1>
           <p className="animate-fade-up-delay mt-5 max-w-2xl text-sm leading-7 text-gray-400 sm:mt-6 sm:text-base sm:leading-8 lg:text-lg">
             Планирате ремонт или строителна дейност? Свържете се с нас, за да обсъдим обхвата, сроковете и възможните решения.

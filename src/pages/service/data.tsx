@@ -12,7 +12,6 @@ export type ServiceData = {
   cardDescription: string;
   cardImage: string;
   heroImageFit?: "cover" | "contain";
-  ctaImageFit?: "cover" | "contain";
 };
 
 export const services: Record<ServiceSlug, ServiceData> = {
@@ -25,8 +24,8 @@ export const services: Record<ServiceSlug, ServiceData> = {
       "Добрата баня е удобна, защитена от влага и лесна за поддръжка. Съобразяваме разпределението, нивата, хидроизолацията и материалите, за да получите практично пространство с дълготраен завършек.",
     includes: ["Демонтаж и подготовка", "ВиК и електро подготовка", "Хидроизолация и плочки", "Монтаж на санитария и финални детайли"],
     heroImage: "/v1787401298/bathroom-3.jpg",
-    detailImage: "/v1787401304/bathroom-6.jpg",
-    ctaImage: "/v1787400733/bathroom-7.jpg",
+    detailImage: "/images/generated/bathroom-renovation-process.jpg",
+    ctaImage: "/images/generated/bathroom-finished.jpg",
     cardDescription: "От демонтажа до санитарията — координиран ремонт за удобна и надеждна баня.",
     cardImage: "/v1787591086/service-img-9.jpg",
   },
@@ -110,8 +109,7 @@ export const services: Record<ServiceSlug, ServiceData> = {
     includes: ["Подготовка и локални корекции", "Грундиране при необходимост", "Боядисване на стени и тавани", "Чист завършек около детайлите"],
     heroImage: "/v1787867342/service-img-13.jpg",
     detailImage: "/v1790352609/painting-services.jpg",
-    ctaImage: "/v1790352574/painting-services-2.jpg",
-    ctaImageFit: "contain",
+    ctaImage: "/images/generated/painting-finished-room.jpg",
     cardDescription: "Равномерен цвят и чист завършек за стени, тавани и помещения.",
     cardImage: "/v1787591078/service-img-4.jpg",
   },

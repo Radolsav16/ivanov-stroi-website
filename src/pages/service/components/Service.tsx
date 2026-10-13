@@ -65,15 +65,15 @@ export default function Service({ service, serviceSlug, guide }: ServiceProps) {
             className="size-full object-cover object-center"
           />
         </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/78" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950/92 via-gray-950/72 to-gray-950/45" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/58" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-gray-950/92 via-gray-950/62 to-gray-950/32" />
         <div aria-hidden="true" className="absolute -left-40 top-1/2 -z-10 size-[500px] -translate-y-1/2 rounded-full bg-amber-500/10 blur-3xl" />
         <Container size="content">
           <SectionHeading
             eyebrow="Какво получавате"
             lines="before"
             className="max-w-3xl"
-            title={<>Решение според <span className="text-amber-500">вашето пространство</span></>}
+            title={<>Решение според <span>вашето пространство</span></>}
             description={service.overview}
             titleClassName="text-3xl sm:text-4xl lg:text-5xl"
             descriptionClassName="mt-7 text-base text-gray-300 sm:text-lg"
@@ -105,7 +105,7 @@ export default function Service({ service, serviceSlug, guide }: ServiceProps) {
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Как работим</p>
               </div>
               <h2 className="mt-6 max-w-xl text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl lg:text-5xl">
-                Ясен процес за <span className="text-amber-500">{service.title.toLowerCase()}</span>
+                Ясен процес за <span>{service.title.toLowerCase()}</span>
               </h2>
             </div>
             <p className="max-w-2xl border-l border-white/15 pl-6 text-base leading-8 text-gray-300 sm:text-lg">
@@ -150,7 +150,7 @@ export default function Service({ service, serviceSlug, guide }: ServiceProps) {
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Преди започване</p>
               </div>
               <h2 className="mt-6 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                Важни решения за <span className="text-amber-500">добре планирана работа</span>
+                Важни решения за <span>добре планирана работа</span>
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-gray-300">
                 Точният обхват се определя според състоянието на обекта и избраните решения. При огледа обръщаме внимание на следните практически въпроси:
@@ -242,32 +242,23 @@ export default function Service({ service, serviceSlug, guide }: ServiceProps) {
 
       <section className="relative isolate overflow-hidden py-20 sm:py-28 lg:py-32">
         <div aria-hidden="true" className="absolute inset-0 -z-20">
-          {service.ctaImageFit === "contain" && (
-            <OptimizedImage
-              url={resolveServiceImage(service.ctaImage)}
-              alt=""
-              width={1920}
-              sizes="100vw"
-              className="absolute inset-0 size-full scale-105 object-cover object-center opacity-70 blur-xl"
-            />
-          )}
           <OptimizedImage
             url={resolveServiceImage(service.ctaImage)}
             alt=""
             width={1920}
             sizes="100vw"
-            className={`relative size-full object-center ${service.ctaImageFit === "contain" ? "object-contain" : "object-cover"}`}
+            className="size-full object-cover object-center"
           />
         </div>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/45" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/70 via-gray-950/20 to-gray-950/75" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/52" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/82 via-gray-950/25 to-gray-950/88" />
         <Container size="narrow" className="text-center">
           <div className="rounded-3xl border border-white/10 bg-gray-950/30 px-5 py-10 shadow-2xl shadow-black/20 backdrop-blur-[2px] sm:px-10 sm:py-12">
             <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-amber-500/20 bg-gray-950/50 text-amber-500 backdrop-blur-sm">
               <ClipboardList className="size-6" />
             </div>
             <h2 className="mt-7 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Вашият проект за <span className="text-amber-500">{service.title.toLowerCase()}</span>
+              Вашият проект за <span>{service.title.toLowerCase()}</span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-gray-100 sm:text-lg">
               Споделете какво планирате и ще обсъдим най-подходящите следващи стъпки за вашия обект.

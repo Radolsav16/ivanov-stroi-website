@@ -30,7 +30,7 @@ export default function Services() {
             lines="after"
             align="right"
             className="max-w-3xl"
-            title={<>Всичко за <span className="text-amber-500">вашия проект</span></>}
+            title={<>Всичко за <span>вашия проект</span></>}
             description="От малка промяна до цялостен ремонт — получавате организирана работа и единна отговорност."
           />
         </div>

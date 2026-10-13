@@ -36,7 +36,7 @@ export default function StrongSides() {
             <SectionHeading
               eyebrow="Защо да изберете нас"
               lines="before"
-              title={<>Подход, който <span className="text-amber-500">се вижда</span></>}
+              title={<>Подход, който <span>се вижда</span></>}
               description="Планираме внимателно, работим организирано и предаваме пространство, което служи добре всеки ден."
               descriptionClassName="max-w-xl"
             />

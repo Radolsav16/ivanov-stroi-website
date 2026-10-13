@@ -44,7 +44,7 @@ export default function WorkWithUs() {
             >
               Имате идея
               <br />
-              <span className="text-amber-500">Нека я изградим</span>
+              <span>Нека я изградим</span>
             </h2>
             <p
               className="

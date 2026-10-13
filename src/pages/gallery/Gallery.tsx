@@ -40,7 +40,7 @@ export default function Gallery() {
                 <h1 className="animate-fade-up max-w-4xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
                   Галерия
                   <br />
-                  <span className="text-amber-500">Примери и решения</span>
+                  <span>Примери и решения</span>
                 </h1>
 
                 <p className="animate-fade-up-delay mt-8 max-w-2xl text-lg leading-8 text-gray-300 sm:text-xl">
@@ -77,7 +77,7 @@ export default function Gallery() {
               lines="both"
               align="center"
               className="mx-auto max-w-3xl"
-              title={<>Три стъпки към <span className="text-amber-500">вашия проект</span></>}
+              title={<>Три стъпки към <span>вашия проект</span></>}
               titleClassName="font-black sm:text-5xl"
               description="От първия разговор до завършения проект – правим процеса максимално лесен и ясен."
               descriptionClassName="text-gray-200"
@@ -194,15 +194,16 @@ export default function Gallery() {
         <section className="relative isolate overflow-hidden pb-16 pt-20 sm:pb-36 sm:pt-28">
           <div aria-hidden="true" className="absolute inset-0 -z-20">
             <OptimizedImage
-              url={`${CLOUDINARY_BASE_URL}/v1787401304/bathroom-6.jpg`}
+              url="/images/generated/gallery-cta-staircase.jpg"
               alt=""
               width={1920}
               sizes="100vw"
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full scale-[1.02] object-cover object-center"
             />
           </div>
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/80" />
-          <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-gray-950 to-transparent" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gray-950/62" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/90 via-gray-950/35 to-gray-950/90" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(3,7,18,0.35)_72%)]" />
 
 
           <Container size="narrow" className="text-center">

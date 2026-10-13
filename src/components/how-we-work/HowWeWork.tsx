@@ -25,7 +25,7 @@ export default function HowWeWork() {
       <Container>
         <SectionHeading
           eyebrow="Как работим"
-          title={<>От идея до <span className="text-amber-500">готов проект</span></>}
+          title={<>От идея до <span>готов проект</span></>}
           description="Следваме ясен ред на работа, за да знаете какво предстои на всеки етап."
           align="center"
           className="mx-auto max-w-3xl"

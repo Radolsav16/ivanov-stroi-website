@@ -41,7 +41,7 @@ const AboutUs = () => {
             <div className="max-w-3xl">
               <h1 className="animate-fade-up max-w-5xl text-5xl font-black leading-[0.98] tracking-tight text-white drop-shadow-2xl sm:text-6xl md:text-7xl lg:text-7xl">
                 Създаваме пространства
-                <span className="mt-2 block text-amber-500 sm:mt-3">
+                <span className="mt-2 block sm:mt-3">
                   в които си струва да живееш
                 </span>
               </h1>
